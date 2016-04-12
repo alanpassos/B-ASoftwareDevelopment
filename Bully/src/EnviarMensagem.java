@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -47,25 +49,36 @@ public class EnviarMensagem extends Thread {
 	private void EnviarMensagemServidor() throws IOException {
 
 		AbrirConexao(porta);
-		System.out.println(socketEnviar.isClosed());
+		/*System.out.println(socketEnviar.isClosed());
 		BufferedWriter pwEnviarMensagem = new BufferedWriter(new OutputStreamWriter(socketEnviar.getOutputStream()));
 		pwEnviarMensagem.write("AYA");
 
-		pwEnviarMensagem.close();
+		pwEnviarMensagem.flush();
+		*/
+		 OutputStream os = socketEnviar.getOutputStream();
+         OutputStreamWriter osw = new OutputStreamWriter(os);
+         BufferedWriter bw = new BufferedWriter(osw);
 
+         String mensagemEnviada = "AYA" + "\n";
+         bw.write(mensagemEnviada);
+         bw.flush();
 		// System.out.println("Enviando mensagem ao server");
 	}
 
 	private void ReceberMensagem() {
 
-		AbrirConexao(porta);
+		//AbrirConexao(porta);
 		System.out.println(socketEnviar.isClosed());
 
 		try {
-			BufferedReader isrReceberMensagem = new BufferedReader(
+			/*BufferedReader isrReceberMensagem = new BufferedReader(
 					new InputStreamReader(socketEnviar.getInputStream()));
 
-			String mensagem = isrReceberMensagem.readLine();
+			String mensagem = isrReceberMensagem.readLine();*/
+			InputStream is = socketEnviar.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String mensagem = br.readLine();
 			System.out.println("Receberu mensagem do Server: " + mensagem);
 			if (!mensagem.equals("IAA")) {
 				// gerar nova eleicao ou senão receber no tempo exato
@@ -83,7 +96,6 @@ public class EnviarMensagem extends Thread {
 	public void run() {
 
 		enviarMensagemReceber();
-
 	}
 
 }
