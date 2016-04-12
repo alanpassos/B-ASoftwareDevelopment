@@ -24,7 +24,7 @@ public class RespostaServidor extends Thread {
 		try {
 			bfMensagemRemetente = new BufferedReader(new InputStreamReader(socketRecebe.getInputStream()));
 			String mensagem = bfMensagemRemetente.readLine();
-			System.out.println("Rebebendo mensagem do remetente: " + mensagem);
+			System.out.println("Rebebendo mensagem do remetente: " + mensagem + " Porta: "+ socketRecebe.getPort());
 
 			BufferedWriter printRespostaAoRemetente = new BufferedWriter(
 					new OutputStreamWriter(socketRecebe.getOutputStream()));

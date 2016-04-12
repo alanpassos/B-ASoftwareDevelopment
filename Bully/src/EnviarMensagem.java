@@ -15,7 +15,6 @@ public class EnviarMensagem extends Thread {
 	int porta;
 
 	public EnviarMensagem(int porta) {
-		
 
 		this.porta = porta;
 
@@ -49,36 +48,40 @@ public class EnviarMensagem extends Thread {
 	private void EnviarMensagemServidor() throws IOException {
 
 		AbrirConexao(porta);
-		/*System.out.println(socketEnviar.isClosed());
-		BufferedWriter pwEnviarMensagem = new BufferedWriter(new OutputStreamWriter(socketEnviar.getOutputStream()));
-		pwEnviarMensagem.write("AYA");
+		/*
+		 * System.out.println(socketEnviar.isClosed()); BufferedWriter
+		 * pwEnviarMensagem = new BufferedWriter(new
+		 * OutputStreamWriter(socketEnviar.getOutputStream()));
+		 * pwEnviarMensagem.write("AYA");
+		 * 
+		 * pwEnviarMensagem.flush();
+		 */
+		OutputStream os = socketEnviar.getOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(os);
+		BufferedWriter bw = new BufferedWriter(osw);
 
-		pwEnviarMensagem.flush();
-		*/
-		 OutputStream os = socketEnviar.getOutputStream();
-         OutputStreamWriter osw = new OutputStreamWriter(os);
-         BufferedWriter bw = new BufferedWriter(osw);
-
-         String mensagemEnviada = "AYA" + "\n";
-         bw.write(mensagemEnviada);
-         bw.flush();
+		String mensagemEnviada = "AYA" + "\n";
+		bw.write(mensagemEnviada);
+		bw.flush();
 		// System.out.println("Enviando mensagem ao server");
 	}
 
 	private void ReceberMensagem() {
 
-		//AbrirConexao(porta);
+		// AbrirConexao(porta);
 		System.out.println(socketEnviar.isClosed());
 
 		try {
-			/*BufferedReader isrReceberMensagem = new BufferedReader(
-					new InputStreamReader(socketEnviar.getInputStream()));
-
-			String mensagem = isrReceberMensagem.readLine();*/
+			/*
+			 * BufferedReader isrReceberMensagem = new BufferedReader( new
+			 * InputStreamReader(socketEnviar.getInputStream()));
+			 * 
+			 * String mensagem = isrReceberMensagem.readLine();
+			 */
 			InputStream is = socketEnviar.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String mensagem = br.readLine();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			String mensagem = br.readLine();
 			System.out.println("Receberu mensagem do Server: " + mensagem);
 			if (!mensagem.equals("IAA")) {
 				// gerar nova eleicao ou senão receber no tempo exato
