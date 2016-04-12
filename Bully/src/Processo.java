@@ -1,91 +1,72 @@
-import java.util.ArrayList;
-
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Processo extends Thread {
-	
-	private int id;
-	private boolean isCoordenador;
-	private int idCoordenadorAtual;
-	private boolean isAtivo;
-	private ArrayList<Processo> processos;
-	
-	public Processo(int id, ArrayList<Processo> processos) {
-		super();
-		this.id = id;
-		this.processos = processos;
-		this.isCoordenador = false;
-		this.isAtivo = true;
-	}
 
-	public int getIdentificador() {
-		return id;
-	}
+	ServerSocket processo;
 
-	public void setIdentificador(int id) {
-		this.id = id;
-	}
+	boolean isServer = false;
 
-	public boolean isCoordenador() {
-		return isCoordenador;
-	}
-
-	public void setCoordenador(boolean isCoordenador) {
-		this.isCoordenador = isCoordenador;
-	}
-
-	public int getIdCoordenadorAtual() {
-		return idCoordenadorAtual;
-	}
-
-	public void setIdCoordenadorAtual(int idCoordenadorAtual) {
-		this.idCoordenadorAtual = idCoordenadorAtual;
-	}
-	
-	public boolean isAtivo() {
-		return isAtivo;
-	}
-
-	public void setAtivo(boolean isAtivo) {
-		this.isAtivo = isAtivo;
-	}
-	
-	public void processoCoordenador(){
-		
-	}
-
-	public void processoParticipante(){
-		enviaMensagem("AYA", getIdCoordenadorAtual());
-		
+	private void AbrirConexao() {
 		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
+			processo = new ServerSocket(8696);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void recebeMensagem(String mensagem, int idProcessoRemetente){
-		if(mensagem.toUpperCase().equals("AYA")){
-			processos.get(idProcessoRemetente).enviaMensagem("IAA", getIdentificador());
-		} else if(mensagem.toUpperCase().equals("IAA")){
-			System.out.println("MENSAGEM RECEBIDA DO COORDENADOR");
-		}
-	}
-	
-	public void enviaMensagem(String mensagem, int idProcessoDestino){
-		processos.get(idProcessoDestino).recebeMensagem(mensagem, getIdentificador());
-	}
-	
-	@Override
-	public void run(){
-		while(isAtivo){
-			if(isCoordenador){
-				processoCoordenador();
-			} else {
-				processoParticipante();
+
+	private void abrirConexaoResposta() {
+		try {
+
+			Socket socketServer;
+			while (isServer) {
+			//	System.out.println("Aguardando pergunta");
+				socketServer = processo.accept();
+				if (socketServer != null) {
+					RespostaServidor resposta = new RespostaServidor(socketServer);
+					resposta.start();
+				}
 			}
-			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 	}
-	
+
+	private void abrirConexaoPergunta() {
+		while (!isServer) {
+			//System.out.println("Respondendo");
+
+			new EnviarMensagem(8696).start();
+
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+	@Override
+	public void run() {
+
+		if (isServer) {
+			AbrirConexao();
+			abrirConexaoResposta();
+		} else {
+			abrirConexaoPergunta();
+		}
+
+	}
+
+	public static void main(String[] args) {
+		new Processo().start();
+	}
+
 }
