@@ -17,7 +17,7 @@ public class Processo extends Thread {
 		}
 	}
 
-	private void abrirConexaoResposta() {
+	private void abrirConexaoRespostaServidor() {
 		try {
 
 			Socket socketServer;
@@ -41,6 +41,7 @@ public class Processo extends Thread {
 			//System.out.println("Respondendo");
 
 			new EnviarMensagem(8696).start();
+			//new ReceberMensagem(8696).start();
 
 			try {
 				Thread.sleep(20000);
@@ -52,15 +53,18 @@ public class Processo extends Thread {
 		}
 
 	}
-
+	
 	@Override
 	public void run() {
 
 		if (isServer) {
+			System.out.println("Servidor");
 			AbrirConexao();
-			abrirConexaoResposta();
+			abrirConexaoRespostaServidor();
 		} else {
+			System.out.println("processo");
 			abrirConexaoPergunta();
+			
 		}
 
 	}

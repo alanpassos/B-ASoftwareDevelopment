@@ -8,11 +8,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class EnviarMensagem extends Thread {
+public class ReceberMensagem extends Thread {
 	Socket socketEnviar;
 	int porta;
 
-	public EnviarMensagem(int porta) {
+	public ReceberMensagem(int porta) {
 		
 
 		this.porta = porta;
@@ -31,32 +31,8 @@ public class EnviarMensagem extends Thread {
 		}
 	}
 
-	public void enviarMensagemReceber() {
 
-		try {
-
-			EnviarMensagemServidor();
-			ReceberMensagem();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	private void EnviarMensagemServidor() throws IOException {
-
-		AbrirConexao(porta);
-		System.out.println(socketEnviar.isClosed());
-		BufferedWriter pwEnviarMensagem = new BufferedWriter(new OutputStreamWriter(socketEnviar.getOutputStream()));
-		pwEnviarMensagem.write("AYA");
-
-		pwEnviarMensagem.close();
-
-		// System.out.println("Enviando mensagem ao server");
-	}
-
-	private void ReceberMensagem() {
+	private void ReceberMensagemServidor() {
 
 		AbrirConexao(porta);
 		System.out.println(socketEnviar.isClosed());
@@ -82,7 +58,7 @@ public class EnviarMensagem extends Thread {
 	@Override
 	public void run() {
 
-		enviarMensagemReceber();
+		ReceberMensagemServidor();
 
 	}
 

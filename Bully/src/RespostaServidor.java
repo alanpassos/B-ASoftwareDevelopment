@@ -13,6 +13,7 @@ public class RespostaServidor extends Thread {
 	Socket socketRecebe;
 
 	public RespostaServidor(Socket socketRemetente) {
+
 		this.socketRecebe = socketRemetente;
 	}
 
@@ -25,12 +26,13 @@ public class RespostaServidor extends Thread {
 			String mensagem = bfMensagemRemetente.readLine();
 			System.out.println("Rebebendo mensagem do remetente: " + mensagem);
 
-			BufferedWriter printRespostaAoRemetente = new BufferedWriter( new OutputStreamWriter(socketRecebe.getOutputStream()));
+			BufferedWriter printRespostaAoRemetente = new BufferedWriter(
+					new OutputStreamWriter(socketRecebe.getOutputStream()));
 			printRespostaAoRemetente.write("IAA");
-			printRespostaAoRemetente.flush();
+			printRespostaAoRemetente.close();
 
 			// System.out.println("Enviando mensagem ao processo");
-
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
