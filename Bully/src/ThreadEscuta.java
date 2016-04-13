@@ -8,15 +8,19 @@ public class ThreadEscuta extends Thread {
 	private int porta;
 	private boolean isAtivo;
 	private ServerSocket severSocket;
-	private String mensageRetorno;
+	private String mensagemRetorno;
 
 	public ThreadEscuta(int porta, String mensagemRetorno){
 		this.porta = (porta);
 		this.isAtivo = true;
-		this.mensageRetorno = mensagemRetorno;
+		this.mensagemRetorno = mensagemRetorno;
 		iniciarServerSocket();
 	}
-	
+		
+	public void setMensagemRetorno(String mensagemRetorno) {
+		this.mensagemRetorno = mensagemRetorno;
+	}
+
 	public boolean isAtivo() {
 		return isAtivo;
 	}
@@ -39,7 +43,7 @@ public class ThreadEscuta extends Thread {
 			while (isAtivo) {
 				socketServer = severSocket.accept();
 				if (socketServer != null) {
-					SocketServidor resposta = new SocketServidor(socketServer, mensageRetorno);
+					SocketServidor resposta = new SocketServidor(socketServer, mensagemRetorno);
 					resposta.start();
 				}
 			}

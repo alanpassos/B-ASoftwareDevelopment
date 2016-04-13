@@ -3,7 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Processo extends Thread {
-	
+
 	public static final int PORTA_INICIAL_ESCUTA_AYA = 8000;
 	public static final int PORTA_INICIAL_ESCUTA_IDENTIFICADOR = 9001;
 	private int identificador;
@@ -14,14 +14,15 @@ public class Processo extends Thread {
 	private ThreadEscuta threadEscutaIdentificador;
 	private int idCoordenadorAtual;
 
-	public Processo(int identificador){
+	public Processo(int identificador) {
 		this.identificador = identificador;
 		this.isCoordenador = false;
 		this.idCoordenadorAtual = 0;
 		this.portaEscutaAYA = identificador + PORTA_INICIAL_ESCUTA_AYA;
 		this.portaEscutaSolicitacaoId = identificador + PORTA_INICIAL_ESCUTA_IDENTIFICADOR;
+		iniciaThreadEscutaIdentificador();
 	}
-		
+
 	public int getIdentificador() {
 		return identificador;
 	}
@@ -41,7 +42,7 @@ public class Processo extends Thread {
 	public int getPortaEscutaSolicitacaoId() {
 		return portaEscutaSolicitacaoId;
 	}
-	
+
 	public int getIdCoordenadorAtual() {
 		return idCoordenadorAtual;
 	}
@@ -50,29 +51,34 @@ public class Processo extends Thread {
 		this.idCoordenadorAtual = idCoordenadorAtual;
 	}
 
+	public void iniciaThreadEscutaIdentificador() {
+		threadEscutaIdentificador = new ThreadEscuta(portaEscutaSolicitacaoId,
+				String.valueOf(identificador) + "#" + isCoordenador());
+		threadEscutaIdentificador.start();
+	}
+
 	public void setCoordenador() {
 		isCoordenador = true;
+		iniciaThreadEscutaAYA();
+		threadEscutaIdentificador.setMensagemRetorno(String.valueOf(identificador) + "#" + isCoordenador());
+	}
+
+	private void iniciaThreadEscutaAYA() {
 		threadEscutaAYA = new ThreadEscuta(portaEscutaAYA, "IAA");
-		threadEscutaIdentificador = new ThreadEscuta(portaEscutaSolicitacaoId, String.valueOf(identificador));
-		threadEscutaIdentificador.start();
 		threadEscutaAYA.start();
 	}
-	
-	public void setNaoCoordenador(){
+
+	public void setNaoCoordenador() {
 		isCoordenador = false;
 		threadEscutaAYA.setAtivo(false);
-		threadEscutaIdentificador.setAtivo(false);
 	}
-	
-	public int solicitaIdCoordenador(int portaDestino){
-		EnviarMensagem enviarMensagem = new EnviarMensagem(portaDestino, "Solicita Id Coordenador");
-		int idCoordenadorAtual = -1;
+
+	public String solicitaIdProcesso(int portaDestino) {
+		EnviarMensagem enviarMensagem = new EnviarMensagem(portaDestino, String.valueOf(identificador));
 		String mensagemRecebida = enviarMensagem.enviarMensagemReceber();
-		if (!mensagemRecebida.equals(""))
-			idCoordenadorAtual = Integer.valueOf(mensagemRecebida);
-		return idCoordenadorAtual;
+		return mensagemRecebida;
 	}
-	
+
 	public void abrirConexaoPerguntaAYA() {
 		final int portaDestino = idCoordenadorAtual + PORTA_INICIAL_ESCUTA_AYA;
 		Thread threadEnviaAYA = new Thread(new Runnable() {
@@ -90,17 +96,17 @@ public class Processo extends Thread {
 		});
 		threadEnviaAYA.start();
 	}
-	
+
 	@Override
 	public void run() {
-		//if (isServer) {
-			System.out.println("Servidor");
-			setCoordenador();
-			int idCoordenador = (solicitaIdCoordenador(8002));
-		//} else {
-			System.out.println("processo");
-			abrirConexaoPerguntaAYA();
-		//}
+		// if (isServer) {
+		System.out.println("Servidor");
+		setCoordenador();
+		String mensagem = (solicitaIdProcesso(8002));
+		// } else {
+		System.out.println("processo");
+		abrirConexaoPerguntaAYA();
+		// }
 	}
 
 	public static void main(String[] args) {

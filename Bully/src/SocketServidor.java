@@ -26,7 +26,19 @@ public class SocketServidor extends Thread {
 		try {
 			bfMensagemRemetente = new BufferedReader(new InputStreamReader(socketRecebe.getInputStream()));
 			String mensagem = bfMensagemRemetente.readLine();
-			System.out.println("Rebebendo mensagem do remetente: " + mensagem + " Porta: "+ socketRecebe.getPort());
+			System.out.println("Rebebendo mensagem do remetente: " + mensagem + " Porta: " + socketRecebe.getPort());
+
+			if (!mensagem.equals("AYA")) {
+
+				String[] mensagemEleicao = mensagem.split("#");
+
+				if (mensagemEleicao[1].equals("true")) {
+					if (Integer.parseInt(mensagemEleicao[0]) > Integer.parseInt(mensagemRetorno)) {
+						mensagemRetorno += "#false";
+					}
+				}
+
+			}
 
 			BufferedWriter printRespostaAoRemetente = new BufferedWriter(
 					new OutputStreamWriter(socketRecebe.getOutputStream()));
@@ -34,7 +46,7 @@ public class SocketServidor extends Thread {
 			printRespostaAoRemetente.close();
 
 			// System.out.println("Enviando mensagem ao processo");
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

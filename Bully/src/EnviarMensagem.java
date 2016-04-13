@@ -24,7 +24,7 @@ public class EnviarMensagem extends Thread {
 		try {
 			this.socketEnviar = new Socket("127.0.0.1", porta);
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			return;
 		} 
 	}
@@ -73,9 +73,6 @@ public class EnviarMensagem extends Thread {
 			BufferedReader br = new BufferedReader(isr);
 			mensagemRecebida = br.readLine();
 			System.out.println("Recebeu mensagem do Server: " + mensagemRecebida);
-			if (!mensagemRecebida.equals("IAA")) {
-
-			}
 			socketEnviar.close();
 		} catch (IOException e) {
 			e.printStackTrace();
