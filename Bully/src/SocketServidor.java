@@ -9,12 +9,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class RespostaServidor extends Thread {
-	Socket socketRecebe;
+public class SocketServidor extends Thread {
+	private Socket socketRecebe;
+	private String mensagemRetorno;
 
-	public RespostaServidor(Socket socketRemetente) {
+	public SocketServidor(Socket socketRemetente, String mensagemRetorno) {
 
 		this.socketRecebe = socketRemetente;
+		this.mensagemRetorno = mensagemRetorno;
 	}
 
 	private void aguardandoPergunta() {
@@ -28,7 +30,7 @@ public class RespostaServidor extends Thread {
 
 			BufferedWriter printRespostaAoRemetente = new BufferedWriter(
 					new OutputStreamWriter(socketRecebe.getOutputStream()));
-			printRespostaAoRemetente.write("IAA");
+			printRespostaAoRemetente.write(mensagemRetorno);
 			printRespostaAoRemetente.close();
 
 			// System.out.println("Enviando mensagem ao processo");

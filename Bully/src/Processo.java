@@ -3,74 +3,108 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Processo extends Thread {
+	
+	public static final int PORTA_INICIAL_ESCUTA_AYA = 8000;
+	public static final int PORTA_INICIAL_ESCUTA_IDENTIFICADOR = 9001;
+	private int identificador;
+	private boolean isCoordenador;
+	private int portaEscutaAYA;
+	private int portaEscutaSolicitacaoId;
+	private ThreadEscuta threadEscutaAYA;
+	private ThreadEscuta threadEscutaIdentificador;
+	private int idCoordenadorAtual;
 
-	ServerSocket processo;
-
-	boolean isServer = false;
-
-	private void AbrirConexao() {
-		try {
-			processo = new ServerSocket(8696);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Processo(int identificador){
+		this.identificador = identificador;
+		this.isCoordenador = false;
+		this.idCoordenadorAtual = 0;
+		this.portaEscutaAYA = identificador + PORTA_INICIAL_ESCUTA_AYA;
+		this.portaEscutaSolicitacaoId = identificador + PORTA_INICIAL_ESCUTA_IDENTIFICADOR;
+	}
+		
+	public int getIdentificador() {
+		return identificador;
 	}
 
-	private void abrirConexaoRespostaServidor() {
-		try {
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
 
-			Socket socketServer;
-			while (isServer) {
-			//	System.out.println("Aguardando pergunta");
-				socketServer = processo.accept();
-				if (socketServer != null) {
-					RespostaServidor resposta = new RespostaServidor(socketServer);
-					resposta.start();
+	public boolean isCoordenador() {
+		return isCoordenador;
+	}
+
+	public int getPortaEscutaAYA() {
+		return portaEscutaAYA;
+	}
+
+	public int getPortaEscutaSolicitacaoId() {
+		return portaEscutaSolicitacaoId;
+	}
+	
+	public int getIdCoordenadorAtual() {
+		return idCoordenadorAtual;
+	}
+
+	public void setIdCoordenadorAtual(int idCoordenadorAtual) {
+		this.idCoordenadorAtual = idCoordenadorAtual;
+	}
+
+	public void setCoordenador() {
+		isCoordenador = true;
+		threadEscutaAYA = new ThreadEscuta(portaEscutaAYA, "IAA");
+		threadEscutaIdentificador = new ThreadEscuta(portaEscutaSolicitacaoId, String.valueOf(identificador));
+		threadEscutaIdentificador.start();
+		threadEscutaAYA.start();
+	}
+	
+	public void setNaoCoordenador(){
+		isCoordenador = false;
+		threadEscutaAYA.setAtivo(false);
+		threadEscutaIdentificador.setAtivo(false);
+	}
+	
+	public int solicitaIdCoordenador(int portaDestino){
+		EnviarMensagem enviarMensagem = new EnviarMensagem(portaDestino, "Solicita Id Coordenador");
+		int idCoordenadorAtual = -1;
+		String mensagemRecebida = enviarMensagem.enviarMensagemReceber();
+		if (!mensagemRecebida.equals(""))
+			idCoordenadorAtual = Integer.valueOf(mensagemRecebida);
+		return idCoordenadorAtual;
+	}
+	
+	public void abrirConexaoPerguntaAYA() {
+		final int portaDestino = idCoordenadorAtual + PORTA_INICIAL_ESCUTA_AYA;
+		Thread threadEnviaAYA = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (!isCoordenador) {
+					new EnviarMensagem(portaDestino, "AYA").start();
+					try {
+						Thread.sleep(20000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	private void abrirConexaoPergunta() {
-		while (!isServer) {
-			//System.out.println("Respondendo");
-
-			new EnviarMensagem(8696).start();
-			//new ReceberMensagem(8696).start();
-
-			try {
-				Thread.sleep(20000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
+		});
+		threadEnviaAYA.start();
 	}
 	
 	@Override
 	public void run() {
-
-		if (isServer) {
+		//if (isServer) {
 			System.out.println("Servidor");
-			AbrirConexao();
-			abrirConexaoRespostaServidor();
-		} else {
+			setCoordenador();
+			int idCoordenador = (solicitaIdCoordenador(8002));
+		//} else {
 			System.out.println("processo");
-			abrirConexaoPergunta();
-			
-		}
-
+			abrirConexaoPerguntaAYA();
+		//}
 	}
 
 	public static void main(String[] args) {
-		new Processo().start();
+		new Processo(1).start();
 	}
 
 }

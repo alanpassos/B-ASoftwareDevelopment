@@ -1,103 +1,90 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class EnviarMensagem extends Thread {
-	Socket socketEnviar;
-	int porta;
+	
+	private Socket socketEnviar;
+	private int porta;
+	private String mensagemEnviada;
 
-	public EnviarMensagem(int porta) {
-
+	public EnviarMensagem(int porta, String mensagemEnviada) {
 		this.porta = porta;
-
+		this.mensagemEnviada = mensagemEnviada;
 	}
 
-	private void AbrirConexao(int porta) {
+	private void abrirConexao(int porta) {
 		try {
 			this.socketEnviar = new Socket("127.0.0.1", porta);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return;
+		} 
+	}
+	
+	private boolean setTimeOutSocket(){
+		try {
+			this.socketEnviar.setSoTimeout(10000);
+		} catch (SocketException e) {
+			//e.printStackTrace();
+			return true;
 		}
+		return false;
 	}
 
-	public void enviarMensagemReceber() {
+	public String enviarMensagemReceber() {
+		String mensagemRecebida = "";
 
 		try {
-
-			EnviarMensagemServidor();
-			ReceberMensagem();
+			abrirConexao(porta);
+			if (socketEnviar != null) {
+				enviarMensagemServidor();
+				mensagemRecebida = receberMensagem();
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-
+		
+		return mensagemRecebida;
 	}
 
-	private void EnviarMensagemServidor() throws IOException {
-
-		AbrirConexao(porta);
-		/*
-		 * System.out.println(socketEnviar.isClosed()); BufferedWriter
-		 * pwEnviarMensagem = new BufferedWriter(new
-		 * OutputStreamWriter(socketEnviar.getOutputStream()));
-		 * pwEnviarMensagem.write("AYA");
-		 * 
-		 * pwEnviarMensagem.flush();
-		 */
+	private void enviarMensagemServidor() throws IOException {
 		OutputStream os = socketEnviar.getOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(os);
 		BufferedWriter bw = new BufferedWriter(osw);
-
-		String mensagemEnviada = "AYA" + "\n";
-		bw.write(mensagemEnviada);
+		bw.write(mensagemEnviada + "\n");
 		bw.flush();
-		// System.out.println("Enviando mensagem ao server");
 	}
 
-	private void ReceberMensagem() {
-
-		// AbrirConexao(porta);
-		System.out.println(socketEnviar.isClosed());
-
+	private String receberMensagem() {
+		String mensagemRecebida = "";
 		try {
-			/*
-			 * BufferedReader isrReceberMensagem = new BufferedReader( new
-			 * InputStreamReader(socketEnviar.getInputStream()));
-			 * 
-			 * String mensagem = isrReceberMensagem.readLine();
-			 */
 			InputStream is = socketEnviar.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
-			String mensagem = br.readLine();
-			System.out.println("Receberu mensagem do Server: " + mensagem);
-			if (!mensagem.equals("IAA")) {
-				// gerar nova eleicao ou senão receber no tempo exato
+			mensagemRecebida = br.readLine();
+			System.out.println("Recebeu mensagem do Server: " + mensagemRecebida);
+			if (!mensagemRecebida.equals("IAA")) {
 
 			}
 			socketEnviar.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return mensagemRecebida;
 	}
 
 	@Override
 	public void run() {
-
 		enviarMensagemReceber();
 	}
 
