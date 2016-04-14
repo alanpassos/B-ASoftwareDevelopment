@@ -27,17 +27,8 @@ public class SocketServidor extends Thread {
 			bfMensagemRemetente = new BufferedReader(new InputStreamReader(socketRecebe.getInputStream()));
 			String mensagem = bfMensagemRemetente.readLine();
 			System.out.println("Rebebendo mensagem do remetente: " + mensagem + " Porta: " + socketRecebe.getPort());
-
-			if (!mensagem.equals("AYA")) {
-
-				String[] mensagemEleicao = mensagem.split("#");
-
-				if (mensagemEleicao[1].equals("true")) {
-					if (Integer.parseInt(mensagemEleicao[0]) > Integer.parseInt(mensagemRetorno)) {
-						mensagemRetorno += "#false";
-					}
-				}
-
+			if (mensagemSolicitaID(mensagem)) {
+				solicitacaoId(mensagem);	
 			}
 
 			BufferedWriter printRespostaAoRemetente = new BufferedWriter(
@@ -52,6 +43,29 @@ public class SocketServidor extends Thread {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void solicitacaoId(String mensagem) {
+		String[] mensagemRecebidaCliente = mensagem.split("#");
+		String[] mensagemRetornoArray = mensagemRetorno.split("#");
+		if (mensagemSolicitaEleicao(mensagemRecebidaCliente)) {
+			if (idClienteMaior(mensagemRecebidaCliente, mensagemRetornoArray)) {
+				mensagemRetorno = " ";
+			}
+		}
+	}
+
+	private boolean idClienteMaior(String[] mensagemRecebidaCliente,
+			String[] mensagemRetornoArray) {
+		return Integer.parseInt(mensagemRecebidaCliente[0]) >= Integer.parseInt(mensagemRetornoArray[0]);
+	}
+
+	private boolean mensagemSolicitaEleicao(String[] mensagemRecebidaCliente) {
+		return mensagemRecebidaCliente[1].equals("true");
+	}
+
+	private boolean mensagemSolicitaID(String mensagem) {
+		return !mensagem.equals("AYA");
 	}
 
 	@Override
