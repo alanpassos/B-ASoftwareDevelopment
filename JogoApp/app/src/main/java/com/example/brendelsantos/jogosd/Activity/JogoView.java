@@ -8,40 +8,46 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.example.brendelsantos.jogosd.Componentes.PaintCartaJogo;
+import com.example.brendelsantos.jogosd.Model.Carta;
 import com.example.brendelsantos.jogosd.R;
+import com.example.brendelsantos.jogosd.Util.PosicoesCartas;
 
+import java.util.HashMap;
 import java.util.Random;
 
 class JogoView extends SurfaceView implements Runnable {
 
-    Thread gameThread = null;
-    SurfaceHolder ourHolder;
+    private Thread gameThread = null;
+    private SurfaceHolder ourHolder;
 
-    volatile boolean playing;
+    private volatile boolean playing;
 
-    Canvas canvas;
-    Paint paint;
-    long fps;
-    Random random;
-    int pontuacao;
+    private Canvas canvas;
+    private Paint paint;
+    private long fps;
+    private Random random;
+    private int pontuacao;
 
-    int contadorObjetosRenovados = 0;
+    private int contadorObjetosRenovados = 0;
 
     private long timeThisFrame;
 
-    Bitmap bitmapBackground;
+    private Bitmap bitmapBackground;
 
-    int[][] matrizImagem;
-    int largura;
-    int altura;
+    private Resources resources;
+    private Context contexto;
 
-    Resources resources;
-    Context contexto;
+    /*
+    AREA PARA TESTES
+     */
+    PaintCartaJogo carta;
 
     public JogoView(Context context) {
         super(context);
@@ -55,11 +61,8 @@ class JogoView extends SurfaceView implements Runnable {
         resources = context.getResources();
 
         bitmapBackground = BitmapFactory.decodeResource(this.getResources(), R.drawable.background);
-
-
+        carta = new PaintCartaJogo(new Carta(), resources);
         playing = true;
-
-        matrizImagem = new int[largura][altura];
     }
 
 
@@ -90,6 +93,7 @@ class JogoView extends SurfaceView implements Runnable {
             canvas = ourHolder.lockCanvas();
 
             canvas.drawBitmap(bitmapBackground, 0, 0, paint);
+            carta.paint(canvas, paint);
             ourHolder.unlockCanvasAndPost(canvas);
         }
     }
