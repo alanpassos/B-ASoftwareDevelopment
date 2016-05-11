@@ -1,0 +1,274 @@
+@charset "utf-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+}
+
+/*configuração swith */
+.ui-inputswitch-on.ui-state-active {
+	background: #1e94d2;
+	color: white;
+}
+/*fim configuração swith */
+
+/* tabela configuração*/
+.ui-widget-content>td {
+	font-size: 12px;
+	padding: 0px 0px;
+	margin: 0px;
+}
+
+.ui-state-default {
+	font-size: 14px;
+	font-weight: 500;
+}
+
+/* fim configuração tabela*/
+/* auto complete*/
+.ui-shadow {
+	webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+	moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+}
+/*fim da configuracao do auto complete*/
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 30px;
+	background-color: #1e94d2;
+	color: #fff;
+	box-shadow: 0px 2px 2px #8080ff;
+}
+
+/*Menu */
+.ui-menu.ui-widget {
+	min-width: 1px;
+	box-shadow: 0 0px 0px;
+}
+
+.ui-menuitem-link .ui-menuitem-text {
+	margin-right: 0.4em;
+}
+
+.menu-ocmea {
+	border: 0px !important;
+	border-color: none !important;
+	padding: 0px !important;
+	background: none !important;
+}
+
+.menu-ocmea .ui-menu-parent>a .ui-menuitem-text, .menu-ocmea>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
+	{
+	color: #ffffff !important;
+}
+
+.menu-ocmea .ui-icon-triangle-1-s {
+	background: url(#{ resource [ 'images:seta-para-baixo.png' ]
+}
+
+)
+no-repeat
+
+
+;
+}
+/* fim de configucao menu*/
+.ui-panel {
+	border: none;
+}
+
+header>div {
+	margin-left: 8px
+}
+
+#conteudo {
+	padding: 0px 8px
+}
+
+footer {
+	padding: 0px 8px;
+	margin-bottom: 10px
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px
+}
+
+h2{
+	font-size: 50px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px
+	
+	
+}
+
+#login-dialog {
+	margin: auto;
+	margin-top: 3%;
+	margin-left: 0%;
+	margin-right: 0%;
+	transition: all 0.9s;
+}
+
+#link-edit{
+	
+}
+
+@media ( min-width : 960px) {
+	#login-dialog {
+		margin: auto;
+		margin-top: 3%;
+		margin-left: 25%;
+		margin-right: 25%;
+		transition: all 0.9s;
+	}
+}
+
+.corpo-cadastro {
+	margin-left: 10px;
+	margin-right: 10px;
+	transition: all 0.9s;
+}
+
+.corpo-cadastro.new-espaco {
+	margin-left: 10px;
+	margin-right: 10px;
+	transition: all 0.9s;
+}
+
+.corpo-cadastro.corpo-grup {
+	margin-left: 100px;
+	margin-right: 100px;
+	transition: all 0.9s;
+}
+
+.corpo-pesquisa {
+	margin-left: 10px;
+	margin-right: 10px;
+	transition: all 0.9s;
+}
+
+@media ( min-width : 960px) {
+	.corpo-cadastro {
+		margin-left: 200px;
+		margin-right: 200px;
+		transition: all 0.9s;
+	}
+	.corpo-cadastro.new-espaco {
+		margin-left: 10px;
+		margin-right: 10px;
+		transition: all 0.9s;
+	}
+}
+
+.oc-grid.ui-grid {
+	background: none !important;
+}
+
+.grid-login {
+	width: 90%;
+	background-color: #f2f2f2;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	margin-top: 10%;
+	margin-left: 5%;
+	margin-right: 0%;
+	padding: 10px;
+	transition: all 0.9s;
+}
+
+@media ( min-width : 960px) {
+	.grid-login {
+		width: 50%;
+		background-color: #f2f2f2;
+		border-radius: 8px;
+		border: 1px solid #ccc;
+		margin-top: 10%;
+		margin-left: 25%;
+		padding: 10px;
+		
+		transition: all 0.9s;
+	}
+}
+
+}
+.rotulo {
+	width: 50px;
+}
+
+.ui-panelgrid {
+	size: 10px;
+	
+}
+
+.ui-panelgrid td {
+	height: 34px;
+	
+}
+
+/*bordar do panelGrid 
+se adicionar no css ele fica sem as bordas 
+
+.ui-widget-content{
+	border: 0px solid #ffffff;
+}
+
+*/
+
+
+.ajax-status {
+	position: fixed;
+	top: 55px;
+	right: 10px;
+	width: 35px;
+	height: 35px
+}
+
+.ui-selectmanycheckbox td {
+	border-width: 0px !important;
+	padding: 0px !important;
+}
+
+.ui-selectmanycheckbox td label {
+	padding-right: 10px;
+}
+
+.produto-tabela input {
+	width: 99%;
+}
+
+/* Customiza TabView - início */
+.ui-tabs .ui-tabs-panel {
+	padding: 0.5em 0.2em !important;
+}
+
+.ui-tabs {
+	padding: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+	margin: -1px !important;
+}
+
+.ui-tabs.ui-tabs-top>.ui-tabs-nav {
+	padding: 0px !important;
+}
+/* Customiza TabView - fim */
+
+/*configuracao do menu*/
+#menu {
+	position: static;
+	font-size: 14px;
+	text-align: right;
+	padding: 0px 20px;
+}
+
+.ui-growl-item {
+	margin-top: 25px;
+}

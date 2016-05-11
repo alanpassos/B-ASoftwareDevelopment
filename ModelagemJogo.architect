@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.7">
+ <project-name>ModelagemJogo</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="Modelo de Dados" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="95c343b6-db32-4c6d-8006-eab6d8334a79" name="TB_JOGADOR" objectType="TABLE" physicalName="TB_JOGADOR" >
+   <remarks></remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="879f9c12-e382-48fe-a53d-53cc1d7e25e5" autoIncrement="true" autoIncrementSequenceName="TB_JOGADOR_JOG_ID_seq" defaultValue="" name="JOG_ID" nullable="0" physicalName="JOG_ID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL3" populated="true" UUID="167068d8-edb1-45c6-bc44-f2909c2a554a" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_NOME_seq" defaultValue="" name="JOG_NOME" nullable="0" physicalName="JOG_NOME" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL4" populated="true" UUID="5f41f25c-b368-4211-8ea9-36527a72e88d" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_HOST_seq" defaultValue="" name="JOG_HOST" nullable="0" physicalName="JOG_HOST" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL5" populated="true" UUID="18c0315d-ad19-4281-8baa-dcbf951274c5" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_QUANTIDADE_VITORIA_seq" defaultValue="" name="JOG_QUANTIDADE_VITORIA" nullable="0" physicalName="JOG_QUANTIDADE_VITORIA" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL6" populated="true" UUID="4ea87748-d210-4f83-8228-14e6956777aa" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_QUANTIDADE_DERROTA_seq" defaultValue="" name="JOG_QUANTIDADE_DERROTA" nullable="0" physicalName="JOG_QUANTIDADE_DERROTA" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL7" populated="true" UUID="fc53b42e-7da3-4fa1-bcde-d9ad1e4e6425" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_DATA_CADASTRO_seq" defaultValue="" name="JOG_DATA_CADASTRO" nullable="0" physicalName="JOG_DATA_CADASTRO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="a6c6b682-fc51-4249-9646-b4185f84d301" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_ATIVO_seq" defaultValue="" name="JOG_ATIVO" nullable="0" physicalName="JOG_ATIVO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX9" populated="true" UUID="47675739-fe8a-4967-88e7-8c8b9d09b086" clustered="false" name="TB_JOGADOR_pk" physicalName="TB_JOGADOR_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC10" populated="true" UUID="d98b1f8b-5be6-47c5-8fa8-9f6db3b37fd5" ascendingOrDescending="UNSPECIFIED" column-ref="COL2" name="JOG_ID" physicalName="JOG_ID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB11" populated="true" UUID="900f1512-541b-431d-9f11-21f7fab54e47" name="TB_BARALHO" objectType="TABLE" physicalName="TB_BARALHO" >
+   <remarks></remarks>
+   <folder id="FOLTAB111" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL12" populated="true" UUID="0dade6ab-d8a1-47b9-b203-108d22c4442a" autoIncrement="true" autoIncrementSequenceName="TB_BARALHO_BAR_ID_seq" defaultValue="" name="BAR_ID" nullable="0" physicalName="BAR_ID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="659b41fc-496c-4ddc-801d-dee30969883b" autoIncrement="false" autoIncrementSequenceName="TB_JOGADOR_JOG_ID_seq" defaultValue="" name="JOG_ID" nullable="0" physicalName="JOG_ID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="92ffa875-5171-4abe-aece-46cebde299ca" autoIncrement="false" autoIncrementSequenceName="TB_BARALHO_BAR_TIPO_seq" defaultValue="" name="BAR_TIPO" nullable="0" physicalName="BAR_TIPO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL15" populated="true" UUID="0559f2f3-6ffe-4f34-9407-3a26101b893e" autoIncrement="false" autoIncrementSequenceName="TB_BARALHO_BAR_DATA_CADASTRO_seq" defaultValue="" name="BAR_DATA_CADASTRO" nullable="0" physicalName="BAR_DATA_CADASTRO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL16" populated="true" UUID="d586355f-84ef-4e64-8e48-a1cd8de8a22b" autoIncrement="false" autoIncrementSequenceName="TB_BARALHO_BAR_ATIVO_seq" defaultValue="" name="BAR_ATIVO" nullable="0" physicalName="BAR_ATIVO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB113" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB112" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB114" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX17" populated="true" UUID="803c3d53-c56c-4878-89c4-79b00c09f019" clustered="false" name="TB_BARALHO_pk" physicalName="TB_BARALHO_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC18" populated="true" UUID="6573f687-965c-4e02-bfa2-29766319c195" ascendingOrDescending="UNSPECIFIED" column-ref="COL12" name="BAR_ID" physicalName="BAR_ID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB19" populated="true" UUID="7cd61745-6be4-4537-a940-1aa7a9b8db18" name="TB_CARTA" objectType="TABLE" physicalName="TB_CARTA" >
+   <remarks></remarks>
+   <folder id="FOLTAB191" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL20" populated="true" UUID="85fc19eb-408c-4e19-9f8d-6155e85098df" autoIncrement="true" autoIncrementSequenceName="TB_CARTA_CAR_ID_seq" defaultValue="" name="CAR_ID" nullable="0" physicalName="CAR_ID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL21" populated="true" UUID="c6ccf596-b2e7-49d8-a0c7-e00d147b1ffc" autoIncrement="false" autoIncrementSequenceName="TB_BARALHO_BAR_ID_seq" defaultValue="" name="BAR_ID" nullable="0" physicalName="BAR_ID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL22" populated="true" UUID="3aeeb374-ab77-495f-a8ce-5a3cd0f68fe7" autoIncrement="false" autoIncrementSequenceName="TB_CARTA_CAR_DESCRICAO_seq" defaultValue="" name="CAR_DESCRICAO" nullable="0" physicalName="CAR_DESCRICAO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL23" populated="true" UUID="d02030fe-9b90-4f6c-8ff8-cc6341b9cf65" autoIncrement="false" autoIncrementSequenceName="TB_CARTA_CAR_CARTA_seq" defaultValue="" name="CAR_CARTA" nullable="0" physicalName="CAR_CARTA" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL24" populated="true" UUID="09137a7c-07cb-4c67-b337-01f1955e2e24" autoIncrement="false" autoIncrementSequenceName="TB_CARTA_CAR_DATA_CADASTRO_seq" defaultValue="" name="CAR_DATA_CADASTRO" nullable="0" physicalName="CAR_DATA_CADASTRO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL25" populated="true" UUID="7d470efd-13ae-4360-aab5-d440de22434a" autoIncrement="false" autoIncrementSequenceName="TB_CARTA_CAR_ATIVO_seq" defaultValue="" name="CAR_ATIVO" nullable="0" physicalName="CAR_ATIVO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB193" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB192" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB194" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX26" populated="true" UUID="11673b9b-9009-4178-ba6c-102aa331158b" clustered="false" name="TB_CARTA_pk" physicalName="TB_CARTA_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC27" populated="true" UUID="9d875b4b-c129-4ba2-86f9-a37d87878248" ascendingOrDescending="UNSPECIFIED" column-ref="COL20" name="CAR_ID" physicalName="CAR_ID" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB28" populated="true" UUID="e8c4b001-757c-4afd-8795-93242b654636" name="TB_TIPO" objectType="TABLE" physicalName="TB_TIPO" >
+   <remarks></remarks>
+   <folder id="FOLTAB281" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL29" populated="true" UUID="f25cbb02-2442-4e99-87e7-514fbc5b408e" autoIncrement="true" autoIncrementSequenceName="TB_TIPO_TIP_ID_seq" defaultValue="" name="TIP_ID" nullable="0" physicalName="TIP_ID" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL30" populated="true" UUID="47087f77-deed-44be-975d-8cf8bc807ae8" autoIncrement="false" autoIncrementSequenceName="TB_CARTA_CAR_ID_seq" defaultValue="" name="CAR_ID" nullable="0" physicalName="CAR_ID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL31" populated="true" UUID="16739fb3-14ad-4b51-b3e2-cca8c371ff10" autoIncrement="false" autoIncrementSequenceName="TB_CARTA_TIP_VALOR_PODER_seq" defaultValue="" name="TIP_VALOR_PODER" nullable="0" physicalName="TIP_VALOR_PODER" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks></remarks>
+    </column>
+    <column id="COL32" populated="true" UUID="c52d6c1e-d2f2-4cf3-95a9-ea9954f71e97" autoIncrement="false" autoIncrementSequenceName="TB_TIPO_TIP_TIPO_seq" defaultValue="" name="TIP_TIPO" nullable="0" physicalName="TIP_TIPO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL33" populated="true" UUID="be62f394-8ecf-48fc-8eaa-3b590366d7e7" autoIncrement="false" autoIncrementSequenceName="TB_TIPO_TIP_DATA_CADASTRO_seq" defaultValue="" name="TIP_DATA_CADASTRO" nullable="0" physicalName="TIP_DATA_CADASTRO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL34" populated="true" UUID="2bdb8580-cc28-4582-a121-ac86b2fb79ab" autoIncrement="false" autoIncrementSequenceName="TB_TIPO_TIP_ATIVO_seq" defaultValue="" name="TIP_ATIVO" nullable="0" physicalName="TIP_ATIVO" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB283" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB282" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB284" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX35" populated="true" UUID="c7e396ed-2e08-41fa-a9c5-3f66473de890" clustered="false" name="TB_TIPO_pk" physicalName="TB_TIPO_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC36" populated="true" UUID="98fa3066-d506-418d-8be9-48b3786c834c" ascendingOrDescending="UNSPECIFIED" column-ref="COL29" name="TIP_ID" physicalName="TIP_ID" />
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL37" populated="true" UUID="7809418b-047e-42ba-9b35-d2e282c5b685" deferrability="7" deleteRule="3" fk-table-ref="TAB11" fkCardinality="7" identifying="false" name="TB_JOGADOR_TB_BARALHO_fk" physicalName="TB_JOGADOR_TB_BARALHO_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP38" populated="true" UUID="d21168a9-8d78-4bc1-8ad6-dcbda137b0ab" fk-column-ref="COL13" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
+   <relationship id="REL39" populated="true" UUID="4565ea3d-c135-4430-8285-f6faf6fb5769" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="false" name="TB_BARALHO_TB_CARTA_fk" physicalName="TB_BARALHO_TB_CARTA_fk" pk-table-ref="TAB11" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP40" populated="true" UUID="98614395-6dd4-4453-ac45-022712090be2" fk-column-ref="COL21" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL12" />
+   </relationship>
+   <relationship id="REL41" populated="true" UUID="2547716f-e164-4bd5-a782-7201e5e7e686" deferrability="7" deleteRule="3" fk-table-ref="TAB28" fkCardinality="7" identifying="false" name="TB_CARTA_TB_TIPO_fk" physicalName="TB_CARTA_TB_TIPO_fk" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP42" populated="true" UUID="2546acc0-3faf-4406-8087-9674f9230c3a" fk-column-ref="COL30" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL20" />
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="59" y="21" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB11" x="274" y="180" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB19" x="480" y="310" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB28" x="729" y="464" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL37" pkConnection="0.8554913294797688" fkConnection="0.15384615384615385" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL39" pkConnection="0.7976878612716763" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
+  <table-link relationship-ref="REL41" pkConnection="0.9453551912568307" fkConnection="0.06896551724137931" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>
