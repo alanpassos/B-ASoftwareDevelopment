@@ -34,12 +34,12 @@ public class Carta implements Serializable {
 	private String nome;
 	private Long valorVidaTotal;;
 	private boolean principal;
-	private String carta;
+	private byte[] carta;
 	private Date dataCadastro;
 	private boolean ativo;
 
 	Baralho baralho = new Baralho();
-	List<Tipo> tipos = new ArrayList<Tipo>();
+	List<Tipo> tipos;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_CARTA")
@@ -52,7 +52,7 @@ public class Carta implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "CAR_DESCRICAO", nullable = false, length = 100)
+	@Column(name = "CAR_DESCRICAO", length = 100)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -61,7 +61,7 @@ public class Carta implements Serializable {
 		this.descricao = descricao;
 	}
 
-	@Column(name = "CAR_NOME", nullable = false, length = 100)
+	@Column(name = "CAR_NOME", length = 100)
 	public String getNome() {
 		return nome;
 	}
@@ -89,18 +89,18 @@ public class Carta implements Serializable {
 		this.principal = principal;
 	}
 
-	@Column(name = "CAR_CARTA", nullable = false, columnDefinition = "text")
-	public String getCarta() {
+	@Column(name = "CAR_CARTA")
+	public byte[] getCarta() {
 		return carta;
 	}
 
-	public void setCarta(String carta) {
+	public void setCarta(byte[] carta) {
 		this.carta = carta;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@ColumnDefault(value = "CURRENT_TIMESTAMP")
-	@Column(name = "CAR_DATA_CADASTRO", nullable = false)
+	@Column(name = "CAR_DATA_CADASTRO")
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -110,7 +110,7 @@ public class Carta implements Serializable {
 	}
 
 	@ColumnDefault(value = "true")
-	@Column(name = "CAR_ATIVO", nullable = false)
+	@Column(name = "CAR_ATIVO")
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -120,7 +120,7 @@ public class Carta implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "JOG_ID")
+	@JoinColumn(name = "BAR_ID")
 	public Baralho getBaralho() {
 		return baralho;
 	}

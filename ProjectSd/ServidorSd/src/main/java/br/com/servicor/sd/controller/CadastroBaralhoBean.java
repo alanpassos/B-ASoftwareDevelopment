@@ -13,25 +13,26 @@ import javax.inject.Named;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import org.primefaces.util.Base64;
 
 import br.com.servicor.sd.model.Baralho;
 import br.com.servicor.sd.model.Carta;
+import br.com.servicor.sd.service.BaralhoService;
 import br.com.servicor.sd.service.CartaService;
 
 @Named
 @ViewScoped
-public class CadastroCartaBean implements Serializable {
+public class CadastroBaralhoBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
-
 	@Inject
-	private CartaService cartaService;
+	private BaralhoService cartaService;
 
+	
 	private Baralho novoBaralho;
 
 	
@@ -82,15 +83,13 @@ public class CadastroCartaBean implements Serializable {
 	}
 
 	public void salvar() {
-		
-		
-		cartaService.guardar(cartas, novoBaralho);
+		novoBaralho.setCartas(cartas);
+		cartaService.guardar(novoBaralho);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				novoBaralho.getNome() + " Cadastrado Com sucesso", ""));
 
 		limpar();
 
 	}
-
 
 }

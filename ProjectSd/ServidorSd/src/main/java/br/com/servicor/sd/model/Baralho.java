@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,9 +40,8 @@ public class Baralho implements Serializable {
 	private Date dataCadastro;
 	private boolean ativo;
 
-	private List<Jogador> jogadores =  new ArrayList<Jogador>();
-	private List<Carta> cartas = new ArrayList<Carta>();
-	
+	private List<Jogador> jogadores;
+	private List<Carta> cartas;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_BARALHO")
@@ -54,7 +54,7 @@ public class Baralho implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "BAR_DESCRICAO", nullable = false, length = 100)
+	@Column(name = "BAR_DESCRICAO",  length = 100)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -72,7 +72,7 @@ public class Baralho implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(name = "BAR_TIPO", nullable = false, length = 100)
+	@Column(name = "BAR_TIPO",  length = 100)
 	public TipoBaralho getTipo() {
 		return tipo;
 	}
@@ -83,7 +83,7 @@ public class Baralho implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@ColumnDefault(value = "CURRENT_TIMESTAMP")
-	@Column(name = "BAR_DATA_CADASTRO", nullable = false)
+	@Column(name = "BAR_DATA_CADASTRO")
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -93,7 +93,7 @@ public class Baralho implements Serializable {
 	}
 
 	@ColumnDefault(value = "true")
-	@Column(name = "BAR_ATIVO", nullable = false)
+	@Column(name = "BAR_ATIVO")
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -102,8 +102,6 @@ public class Baralho implements Serializable {
 		this.ativo = ativo;
 	}
 
-	
-	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "SD_JOGADOR_SD_BARALHO")
 	public List<Jogador> getJogadores() {
@@ -114,7 +112,7 @@ public class Baralho implements Serializable {
 		this.jogadores = jogadores;
 	}
 
-	@OneToMany(mappedBy="baralho")
+	@OneToMany(mappedBy = "baralho")
 	public List<Carta> getCartas() {
 		return cartas;
 	}
