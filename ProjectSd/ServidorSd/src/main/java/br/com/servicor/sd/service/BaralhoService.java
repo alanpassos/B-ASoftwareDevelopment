@@ -1,6 +1,7 @@
 package br.com.servicor.sd.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,6 +24,8 @@ public class BaralhoService implements Serializable {
 
 	@Transacional
 	public Baralho guardar(Baralho baralho) {
+		
+		baralho.setDataCadastro(new Date());
 		return baralhos.guardar(baralho);
 	}
 

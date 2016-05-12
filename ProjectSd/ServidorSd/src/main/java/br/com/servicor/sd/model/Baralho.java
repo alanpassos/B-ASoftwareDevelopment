@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -72,6 +74,7 @@ public class Baralho implements Serializable {
 		this.nome = nome;
 	}
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "BAR_TIPO",  length = 100)
 	public TipoBaralho getTipo() {
 		return tipo;
@@ -112,7 +115,7 @@ public class Baralho implements Serializable {
 		this.jogadores = jogadores;
 	}
 
-	@OneToMany(mappedBy = "baralho")
+	@OneToMany(mappedBy = "baralho",cascade= CascadeType.ALL)
 	public List<Carta> getCartas() {
 		return cartas;
 	}

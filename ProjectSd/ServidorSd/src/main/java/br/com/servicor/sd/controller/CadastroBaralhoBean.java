@@ -3,6 +3,7 @@ package br.com.servicor.sd.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -17,6 +18,7 @@ import org.primefaces.util.Base64;
 
 import br.com.servicor.sd.model.Baralho;
 import br.com.servicor.sd.model.Carta;
+import br.com.servicor.sd.model.TipoBaralho;
 import br.com.servicor.sd.service.BaralhoService;
 import br.com.servicor.sd.service.CartaService;
 
@@ -68,6 +70,11 @@ public class CadastroBaralhoBean implements Serializable {
 		this.file = file;
 	}
 
+	
+	public TipoBaralho[] getTipoBaralho(){
+		return TipoBaralho.values();
+	}
+	
 	public void uploadPhoto(FileUploadEvent e) throws IOException {
 
 		file = e.getFile();
@@ -77,7 +84,10 @@ public class CadastroBaralhoBean implements Serializable {
 		carta.setDescricao(file.getFileName());
 		carta.setNome(file.getFileName());
 		carta.setPrincipal(false);
-		carta.setCarta(file.getContents());
+		carta.setCarta(Base64.encodeToString(file.getContents(), true));
+		carta.setBaralho(novoBaralho);
+		carta.setDataCadastro(new Date());
+		carta.setAtivo(true);
 		cartas.add(carta);
 		System.out.println("Carta: " + carta.getCarta().toString());
 	}

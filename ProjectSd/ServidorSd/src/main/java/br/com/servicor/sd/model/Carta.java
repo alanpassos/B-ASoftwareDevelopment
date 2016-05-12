@@ -34,7 +34,7 @@ public class Carta implements Serializable {
 	private String nome;
 	private Long valorVidaTotal;;
 	private boolean principal;
-	private byte[] carta;
+	private String carta;
 	private Date dataCadastro;
 	private boolean ativo;
 
@@ -89,12 +89,12 @@ public class Carta implements Serializable {
 		this.principal = principal;
 	}
 
-	@Column(name = "CAR_CARTA")
-	public byte[] getCarta() {
+	@Column(name = "CAR_CARTA", columnDefinition="text")
+	public String getCarta() {
 		return carta;
 	}
 
-	public void setCarta(byte[] carta) {
+	public void setCarta(String carta) {
 		this.carta = carta;
 	}
 
