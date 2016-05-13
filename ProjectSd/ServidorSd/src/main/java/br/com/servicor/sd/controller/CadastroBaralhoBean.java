@@ -94,6 +94,8 @@ public class CadastroBaralhoBean implements Serializable {
 
 	public void salvar() {
 		novoBaralho.setCartas(cartas);
+		novoBaralho.setAtivo(true);
+		novoBaralho.setCapa(cartas.get(0).getCarta());
 		cartaService.guardar(novoBaralho);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				novoBaralho.getNome() + " Cadastrado Com sucesso", ""));

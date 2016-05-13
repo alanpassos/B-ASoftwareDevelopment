@@ -18,48 +18,37 @@ import org.primefaces.util.Base64;
 
 import br.com.servicor.sd.model.Baralho;
 import br.com.servicor.sd.model.Carta;
+import br.com.servicor.sd.service.BaralhoService;
 import br.com.servicor.sd.service.CartaService;
 
 @Named
-@ViewScoped
-public class listarCartaBean implements Serializable {
+@ApplicationScoped
+public class listarBaralhoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private CartaService cartaService;
 
-	private List<Carta> cartas;
+	@Inject
+	private BaralhoService baralhoService;
 	
-	private Baralho baralho;
+	private List<Baralho> baralhos;
 
-	
+	@PostConstruct
 	public void inicializar() {
-
-		if (baralho == null){
-			baralho = new Baralho();
-			
-		}else{
-			cartas = baralho.getCartas();
-			
-		}
-
-		System.out.println(baralho.getId());
+	
+		baralhos = baralhoService.todos();
+		
 	}
 
-	public void addBaralho(Baralho baralho) {
-		this.baralho = baralho;
+
+	public List<Baralho> getBaralhos() {
+		return baralhos;
 	}
 
-	public Baralho getBaralho() {
-		return baralho;
-	}
 
-	public void setBaralho(Baralho baralho) {
-		this.baralho = baralho;
-	}
-
-	public byte[] motrarImagem(String imagem) {
+	public byte[] getImagem(String imagem) {
 
 		return Base64.decode(imagem);
 

@@ -39,6 +39,7 @@ public class Baralho implements Serializable {
 	private String descricao;
 	private String nome;
 	private TipoBaralho tipo;
+	private String capa;
 	private Date dataCadastro;
 	private boolean ativo;
 
@@ -82,6 +83,16 @@ public class Baralho implements Serializable {
 
 	public void setTipo(TipoBaralho tipo) {
 		this.tipo = tipo;
+	}
+
+	
+	@Column(name = "BAR_CAPA",  columnDefinition="text")
+	public String getCapa() {
+		return capa;
+	}
+
+	public void setCapa(String capa) {
+		this.capa = capa;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

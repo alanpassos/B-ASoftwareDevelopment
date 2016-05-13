@@ -23,16 +23,10 @@ public class CartaService implements Serializable {
 	@Inject
 	private Cartas cartas;
 
-	@Inject
-	private Baralhos baralhos;
-
 	@Transacional
-	public void guardar(List<Carta> cartas, Baralho baralho) {
-	Baralho	baralhoNew = baralhos.guardar(baralho);
-		for (Carta carta : cartas) {
-			carta.setBaralho(baralhoNew);
-			this.cartas.guardar(carta);
-		}
+	public void guardar(Carta carta) {
+
+		this.cartas.guardar(carta);
 
 	}
 
