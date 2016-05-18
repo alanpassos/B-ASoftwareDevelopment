@@ -1,6 +1,5 @@
 package br.com.servicor.sd.servidor;
 
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,12 +13,12 @@ public class Servidor extends Thread {
 	 * @throws IOException
 	 */
 	private int porta;
-	
+
 	private boolean servidorAtivo;
 	ServerSocket welcomeSocket;
 
 	public Servidor(int porta) {
-		
+
 		this.servidorAtivo = true;
 		this.porta = porta;
 	}
@@ -32,7 +31,7 @@ public class Servidor extends Thread {
 		try {
 			this.welcomeSocket.close();
 		} catch (IOException e) {
-			
+
 		}
 		this.servidorAtivo = false;
 	}
@@ -45,13 +44,13 @@ public class Servidor extends Thread {
 			welcomeSocket = new ServerSocket(porta);
 			while (true) {
 				Socket connectionSocket = welcomeSocket.accept();
-				
+
 				if (connectionSocket != null) {
 					MyThreadConnection c = new MyThreadConnection(connectionSocket);
 					c.start();
-				
+
 				}
-				
+
 			}
 		} catch (IOException e) {
 			return;
@@ -59,9 +58,9 @@ public class Servidor extends Thread {
 
 	}
 
+	public static void main(String[] args) throws IOException {
+		Servidor ser = new Servidor(6783);
+		ser.start();
+	}
 
-	/*
-	 * public static void main(String[] args) throws IOException { Servidor ser
-	 * = new Servidor(6783); ser.start(); }
-	 */
 }

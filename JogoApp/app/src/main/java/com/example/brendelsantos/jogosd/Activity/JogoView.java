@@ -1,65 +1,76 @@
 package com.example.brendelsantos.jogosd.Activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
+import com.example.brendelsantos.jogosd.Componentes.PaintCartaJogo;
+import com.example.brendelsantos.jogosd.Dados.Partida;
+import com.example.brendelsantos.jogosd.Model.Carta;
 import com.example.brendelsantos.jogosd.R;
 
 import java.util.Random;
 
 class JogoView extends SurfaceView implements Runnable {
 
-    Thread gameThread = null;
-    SurfaceHolder ourHolder;
+    private Thread gameThread = null;
+    private SurfaceHolder ourHolder;
 
-    volatile boolean playing;
+    private volatile boolean playing;
 
-    Canvas canvas;
-    Paint paint;
-    long fps;
-    Random random;
-    int pontuacao;
+    private Canvas canvas;
+    private Paint paint;
+    private long fps;
+    private Random random;
+    private int pontuacao;
 
-    int contadorObjetosRenovados = 0;
+    private int contadorObjetosRenovados = 0;
 
     private long timeThisFrame;
 
-    Bitmap bitmapBackground;
+    private Bitmap bitmapBackground;
 
-    int[][] matrizImagem;
-    int largura;
-    int altura;
+    private Resources resources;
+    private Context contexto;
 
-    Resources resources;
-    Context contexto;
+    /*
+    AREA PARA TESTES
+     */
+    Partida partida;
+    private int contador = 0;
 
-    public JogoView(Context context) {
+    public JogoView(Context context, Partida partida) {
         super(context);
 
-        contexto = context;
-        pontuacao = 0;
+        this.contexto = context;
+        this.pontuacao = 0;
+        Toast.makeText(contexto, "Teste", Toast.LENGTH_SHORT).show();
 
-        ourHolder = getHolder();
-        paint = new Paint();
-        random = new Random();
-        resources = context.getResources();
+        this.ourHolder = getHolder();
+        this.paint = new Paint();
+        this.random = new Random();
+        this. resources = context.getResources();
 
-        bitmapBackground = BitmapFactory.decodeResource(this.getResources(), R.drawable.background);
-
+        this.bitmapBackground = BitmapFactory.decodeResource(this.getResources(), R.drawable.background);
+        this.partida = partida;
+        this.partida.adicionaCartaJogador(1, 1);
+        this.partida.adicionaCartaJogador(2, 2);
+        this.partida.adicionaCartaJogador(7, 3);
+        this.partida.adicionaCartaJogador(6, 4);
+        this.partida.adicionaCartaJogador(8, 5);
+        this.partida.adicionaCartaJogador(9, 6);
+        this.partida.adicionaCartaJogador(13, 7);
+        this.partida.adicionaCartaJogador(14, 8);
 
         playing = true;
-
-        matrizImagem = new int[largura][altura];
     }
 
 
@@ -90,6 +101,7 @@ class JogoView extends SurfaceView implements Runnable {
             canvas = ourHolder.lockCanvas();
 
             canvas.drawBitmap(bitmapBackground, 0, 0, paint);
+            partida.paintCartas(canvas, paint);
             ourHolder.unlockCanvasAndPost(canvas);
         }
     }

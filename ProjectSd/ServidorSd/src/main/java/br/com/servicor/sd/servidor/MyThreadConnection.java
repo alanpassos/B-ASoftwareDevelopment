@@ -66,7 +66,7 @@ public class MyThreadConnection extends Thread {
 
 			break;
 
-		case "porId":
+		case "porid":
 
 			AcessoMetodoUtil.getBaralhoPorId(objectOutput, id);
 
@@ -91,7 +91,7 @@ public class MyThreadConnection extends Thread {
 
 			break;
 
-		case "porId":
+		case "porid":
 
 			AcessoMetodoUtil.getJogadorPorId(objectOutput, id);
 
@@ -105,10 +105,10 @@ public class MyThreadConnection extends Thread {
 
 	private void acessarClassesBanco(String descricao, ObjectOutputStream objectOutput) {
 
-		String[] descricaoTwo = descricao.split(".");
+		String[] descricaoTwo = descricao.split("#");
 
 		switch (descricaoTwo[0]) {
-		case "Baralho":
+		case "baralho":
 
 			if (descricaoTwo.length < 3) {
 				acessarMetodosBancoBaralho(descricaoTwo[1], objectOutput, new Long(0));
@@ -118,10 +118,10 @@ public class MyThreadConnection extends Thread {
 
 			break;
 
-		case "Carta":
+		case "carta":
 
 			break;
-		case "Jogador":
+		case "jogador":
 
 			if (descricaoTwo.length < 3) {
 				acessarMetodosBancoJogador(descricaoTwo[1], objectOutput, new Long(0));
