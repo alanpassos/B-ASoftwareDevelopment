@@ -51,20 +51,7 @@ public class Jogadores implements Serializable {
 
 	public Jogador porId(Long id) {
 
-		this.builder = this.manager.getCriteriaBuilder();
-		this.query = builder.createQuery(Jogador.class);
-
-		Root<Jogador> jogadorRoot = query.from(Jogador.class);
-		Predicate predicate = builder.and(
-				builder.equal(jogadorRoot.get("id"), id),
-				builder.isTrue(jogadorRoot.get("ativo")));
-
-		query.select(jogadorRoot);
-		query.where(predicate);
-
-		TypedQuery<Jogador> typedQuery = manager.createQuery(query);
-
-		Jogador jogador = typedQuery.getSingleResult();
+		Jogador jogador = manager.find(Jogador.class, id);
 
 		return jogador;
 

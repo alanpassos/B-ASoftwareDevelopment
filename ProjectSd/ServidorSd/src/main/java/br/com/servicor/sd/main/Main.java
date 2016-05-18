@@ -27,7 +27,7 @@ public class Main {
 		trx.begin();
 
 		Jogador jogador = new Jogador();
-		jogador.setNome("iury");
+		jogador.setNome("Tadeu");
 		jogador.setNivel("Alto");
 		jogador.setHost("192.168.0.100");
 		jogador.setPorta(new Long(3698));
@@ -35,6 +35,24 @@ public class Main {
 		jogador.setAtivo(true);
 		manager.merge(jogador);
 
+		jogador = new Jogador();
+		jogador.setNome("Alan");
+		jogador.setNivel("Alto");
+		jogador.setHost("192.168.0.101");
+		jogador.setPorta(new Long(3698));
+		jogador.setDataCadastro(new Date());
+		jogador.setAtivo(true);
+		manager.merge(jogador);
+		
+
+		jogador = new Jogador();
+		jogador.setNome("Brendel");
+		jogador.setNivel("Alto");
+		jogador.setHost("192.168.0.102");
+		jogador.setPorta(new Long(3698));
+		jogador.setDataCadastro(new Date());
+		jogador.setAtivo(true);
+		manager.merge(jogador);
 		
 		
 		trx.commit();

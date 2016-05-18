@@ -24,7 +24,7 @@ public class JogadorService implements Serializable {
 	public Jogador guardar(Jogador jogador) {
 		
 		jogador.setDataCadastro(new Date());
-		jogador.setAtivo(true);
+		jogador.setAtivo(false);
 		
 		return jogadores.guardar(jogador);
 	}

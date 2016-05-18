@@ -80,6 +80,10 @@ public class MyThreadConnection extends Thread {
 
 	private void acessarMetodosBancoJogador(String descricao, ObjectOutputStream objectOutput, Long id) {
 
+		
+		
+		
+		
 		switch (descricao) {
 		case "todos":
 
