@@ -7,26 +7,57 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
+
+import br.com.servicor.sd.controller.listarBaralhoBean;
+import br.com.servicor.sd.controller.listarJogadorBean;
 import br.com.servicor.sd.metodo.AcessoMetodoUtil;
+import br.com.servicor.sd.model.Baralho;
+import br.com.servicor.sd.model.Jogador;
+import br.com.servicor.sd.repository.GenericFactory;
+import br.com.servicor.sd.service.BaralhoService;
+import br.com.servicor.sd.service.JogadorService;
 
 public class MyThreadConnection extends Thread {
 	private Socket s;
+
+	GenericFactory generic;
+
+	EntityManagerFactory factory;
+	EntityManager manager;
+
 	boolean navegador;
 
 	public MyThreadConnection(Socket s) {
 		this.s = s;
 		this.navegador = false;
+		generic = new GenericFactory<>();
+		factory = Persistence.createEntityManagerFactory("ServidorSd");
+		manager = factory.createEntityManager();
+
 	}
 
 	public void run() {
@@ -47,28 +78,30 @@ public class MyThreadConnection extends Thread {
 			// System.out.println("Recebeu pedido de arquivo " + nmArquivo);
 			System.out.println(descricao);
 
-			ObjectOutputStream objectOutput = new ObjectOutputStream(s.getOutputStream());
+			OutputStream objectOutput = s.getOutputStream();
 
 			acessarClassesBanco(descricao, objectOutput);
 
 		} catch (IOException ex) {
 
+		} catch (java.text.ParseException e) {
+			// TODO: handle exception
 		}
 
 	}
 
-	private void acessarMetodosBancoBaralho(String descricao, ObjectOutputStream objectOutput, Long id) {
+	private void acessarMetodosBancoBaralho(String descricao, OutputStream objectOutput, Long id) {
 
 		switch (descricao) {
 		case "todos":
 
-			AcessoMetodoUtil.getTodosBaralhos(objectOutput);
+			getTodosBaralhos(objectOutput);
 
 			break;
 
 		case "porid":
 
-			AcessoMetodoUtil.getBaralhoPorId(objectOutput, id);
+			getBaralhoPorId(objectOutput, id);
 
 			break;
 
@@ -78,22 +111,19 @@ public class MyThreadConnection extends Thread {
 
 	}
 
-	private void acessarMetodosBancoJogador(String descricao, ObjectOutputStream objectOutput, Long id) {
+	private void acessarMetodosBancoJogador(String descricao, OutputStream objectOutput, Long id)
+			throws java.text.ParseException {
 
-		
-		
-		
-		
 		switch (descricao) {
 		case "todos":
 
-			AcessoMetodoUtil.getTodosJogadores(objectOutput);
+			getTodosJogadores(objectOutput);
 
 			break;
 
 		case "porid":
 
-			AcessoMetodoUtil.getJogadorPorId(objectOutput, id);
+			getJogadorPorId(objectOutput, id);
 
 			break;
 
@@ -103,7 +133,7 @@ public class MyThreadConnection extends Thread {
 
 	}
 
-	private void acessarClassesBanco(String descricao, ObjectOutputStream objectOutput) {
+	private void acessarClassesBanco(String descricao, OutputStream objectOutput) throws java.text.ParseException {
 
 		String[] descricaoTwo = descricao.split("#");
 
@@ -134,6 +164,63 @@ public class MyThreadConnection extends Thread {
 			break;
 		}
 
+	}
+
+	public void getTodosBaralhos(OutputStream objectOutput) {
+
+		
+		
+		
+		List<Baralho> baralhos = manager.createQuery("from Baralho", Baralho.class).getResultList();
+		manager.close();
+
+		PrintStream print = new PrintStream(objectOutput);
+
+		String baralhoNew = generic.returnJson(baralhos);
+		print.print(baralhoNew);
+		print.flush();
+	}
+
+	public void getBaralhoPorId(OutputStream objectOutput, Long id) {
+
+		Baralho baralho = manager.find(Baralho.class, id);
+		manager.close();
+
+		PrintStream print = new PrintStream(objectOutput);
+
+		String baralhoNew = generic.returnJson(baralho);
+		print.print(baralhoNew);
+		print.flush();
+	}
+
+	
+	
+
+	public void getTodosJogadores(OutputStream objectOutput) throws java.text.ParseException {
+
+		List<Jogador> jogadores = manager.createQuery("from Jogador where JOG_ATIVO= true", Jogador.class)
+				.getResultList();
+
+		manager.close();
+
+		PrintStream print = new PrintStream(objectOutput);
+
+		String jogador = generic.returnJson(jogadores);
+		print.print(jogador);
+		print.flush();
+
+	}
+
+	public void getJogadorPorId(OutputStream objectOutput, Long id) {
+
+		Jogador jogador = manager.find(Jogador.class, id);
+		manager.close();
+
+		PrintStream print = new PrintStream(objectOutput);
+
+		String jogadorNew = generic.returnJson(jogador);
+		print.print(jogadorNew);
+		print.flush();
 	}
 
 }
