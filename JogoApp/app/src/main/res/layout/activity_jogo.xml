@@ -33,34 +33,34 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-            <ImageButton
+            <com.example.brendelsantos.jogosd.Componentes.BotaoCarta
                 android:layout_width="72dp"
                 android:layout_height="102dp"
-                android:id="@+id/imageButton"
+                android:id="@+id/botao_carta_0"
                 android:layout_marginTop="10dp" />
 
-            <ImageButton
+            <com.example.brendelsantos.jogosd.Componentes.BotaoCarta
                 android:layout_width="72dp"
                 android:layout_height="102dp"
-                android:id="@+id/imageButton2"
+                android:id="@+id/botao_carta_1"
                 android:layout_marginTop="10dp" />
 
-            <ImageButton
+            <com.example.brendelsantos.jogosd.Componentes.BotaoCarta
                 android:layout_width="72dp"
                 android:layout_height="102dp"
-                android:id="@+id/imageButton3"
+                android:id="@+id/botao_carta_2"
                 android:layout_marginTop="10dp" />
 
-            <ImageButton
+            <com.example.brendelsantos.jogosd.Componentes.BotaoCarta
                 android:layout_width="72dp"
                 android:layout_height="102dp"
-                android:id="@+id/imageButton4"
+                android:id="@+id/botao_carta_3"
                 android:layout_marginTop="10dp" />
 
-            <ImageButton
+            <com.example.brendelsantos.jogosd.Componentes.BotaoCarta
                 android:layout_width="72dp"
                 android:layout_height="102dp"
-                android:id="@+id/imageButton5"
+                android:id="@+id/botao_carta_4"
                 android:layout_marginTop="10dp" />
 
         </LinearLayout>

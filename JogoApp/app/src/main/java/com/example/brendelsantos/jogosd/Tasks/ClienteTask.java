@@ -4,9 +4,12 @@ package com.example.brendelsantos.jogosd.Tasks;
  * Created by Brendel Santos on 10/05/2016.
  */
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -14,13 +17,19 @@ import android.os.AsyncTask;
 
 public class ClienteTask extends AsyncTask<Void, Void, Void> {
 
-    String enderecoDestino;
-    int portaDestino;
-    String resposta = "";
+    private String enderecoDestino;
+    private int portaDestino;
+    private String mensagemEnviada;
+    private String resposta ;
+    private OutputStream os;
+    private OutputStreamWriter osw;
+    BufferedWriter bw;
 
-    ClienteTask(String addr, int port){
-        enderecoDestino = addr;
-        portaDestino = port;
+    public ClienteTask(String addr, int port, String mensagemEnviada){
+        this.enderecoDestino = addr;
+        this.portaDestino = port;
+        this.mensagemEnviada = mensagemEnviada;
+        this.resposta = "";
     }
 
     @Override
@@ -30,6 +39,13 @@ public class ClienteTask extends AsyncTask<Void, Void, Void> {
 
         try {
             socket = new Socket(enderecoDestino, portaDestino);
+            os = socket.getOutputStream();
+            osw = new OutputStreamWriter(os);
+            bw = new BufferedWriter(osw);
+
+            String mensagemEnviada = this.mensagemEnviada + "\n";
+            bw.write(mensagemEnviada);
+            bw.flush();
 
             ByteArrayOutputStream byteArrayOutputStream =
                     new ByteArrayOutputStream(1024);
@@ -38,10 +54,6 @@ public class ClienteTask extends AsyncTask<Void, Void, Void> {
             int bytesRead;
             InputStream inputStream = socket.getInputStream();
 
-    /*
-     * notice:
-     * inputStream.read() will block if no data return
-     */
             while ((bytesRead = inputStream.read(buffer)) != -1){
                 byteArrayOutputStream.write(buffer, 0, bytesRead);
                 resposta += byteArrayOutputStream.toString("UTF-8");
