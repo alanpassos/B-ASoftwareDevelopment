@@ -32,14 +32,9 @@ import javax.swing.JOptionPane;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
-import br.com.servicor.sd.controller.listarBaralhoBean;
-import br.com.servicor.sd.controller.listarJogadorBean;
-import br.com.servicor.sd.metodo.AcessoMetodoUtil;
+
 import br.com.servicor.sd.model.Baralho;
 import br.com.servicor.sd.model.Jogador;
-import br.com.servicor.sd.repository.GenericFactory;
-import br.com.servicor.sd.service.BaralhoService;
-import br.com.servicor.sd.service.JogadorService;
 
 public class MyThreadConnection extends Thread {
 	private Socket s;

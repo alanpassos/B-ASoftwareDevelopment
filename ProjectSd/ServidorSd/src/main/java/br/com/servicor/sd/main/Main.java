@@ -11,7 +11,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import br.com.servicor.sd.model.Jogador;
-import br.com.servicor.sd.service.JogadorService;
 
 public class Main {
 
