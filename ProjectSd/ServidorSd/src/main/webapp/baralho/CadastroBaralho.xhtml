@@ -1,0 +1,44 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<f:metadata>
+
+		<f:viewAction action="#{cadastroBaralhoBean.inicializar}" />
+
+	</f:metadata>
+
+
+
+
+
+	<body>
+
+
+
+		<ui:define name="corpo">
+
+			<p:growl id="growl" showDetail="false" sticky="false"
+				autoUpdate="false" />
+
+			<h:form id="frm">
+
+				<div class="corpo-cadastro">
+					<ui:include src="/WEB-INF/template/baralho/DadosEntrada.xhtml" />
+				</div>
+				
+				<ui:include src="/WEB-INF/template/baralho/UploadFoto.xhtml" />
+
+			</h:form>
+
+		</ui:define>
+
+	</body>
+
+
+</ui:composition>

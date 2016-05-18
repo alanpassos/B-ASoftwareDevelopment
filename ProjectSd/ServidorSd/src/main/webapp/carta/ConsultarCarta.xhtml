@@ -1,0 +1,94 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+
+	<f:metadata>
+		<o:viewParam name="baralho" value="#{listarCartaBean.baralho}" />
+		<f:viewAction action="#{listarCartaBean.inicializar}" />
+
+	</f:metadata>
+
+
+
+
+
+	<body>
+
+
+
+		<ui:define name="corpo">
+
+			<p:growl id="growl" showDetail="false" sticky="false"
+				autoUpdate="false" />
+
+			<h:form>
+				<p:dataTable id="tableaCartas" style="margin-top: 20px;"
+					value="#{listarCartaBean.baralho.cartas}" var="carta"
+					emptyMessage="Nenhuma Carta Encontrada" rows="16" paginator="true"
+					sortOrder="descending" sortBy="#{carta.baralho.nome}"
+					paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					reflow="true" cellSeparator="false">
+
+					<p:column headerText="Carta" style="text-align: center; width: 50%"
+						sortBy="#{carta.carta}">
+						<a href=""> <o:graphicImage
+								value="#{listarCartaBean.motrarImagem(carta.carta)}"
+								dataURI="true" height="110" width="80">
+
+
+							</o:graphicImage>
+						</a>
+					</p:column>
+
+					<p:column headerText="Carta"
+						style="text-align: center; width: 100%" sortBy="#{carta.nome}">
+						<h:outputText value="#{carta.nome}" />
+					</p:column>
+
+					<p:column headerText="Descrição"
+						style="text-align: center; width: 100%"
+						sortBy="#{carta.descricao}">
+						<h:outputText value="#{carta.descricao}" />
+					</p:column>
+
+					<p:column headerText="Vida Total"
+						style="text-align: center; width: 100%"
+						sortBy="#{carta.valorVidaTotal}">
+						<h:outputText value="#{carta.valorVidaTotal}" />
+					</p:column>
+
+					<p:column headerText="Principal"
+						style="text-align: center; width: 100%"
+						sortBy="#{carta.principal}">
+						<h:outputText value="#{carta.principal? 'Sim': 'Não'}" />
+					</p:column>
+
+
+
+					<p:column headerText="Baralho"
+						style="text-align: center; width: 100%"
+						sortBy="#{carta.baralho.nome}">
+						<h:outputText value="#{carta.baralho.nome}" />
+					</p:column>
+					<p:column style="text-align: center; width: 50%">
+						<p:button icon="ui-icon-pencil" title="Editar" />
+
+
+						<p:commandButton icon="ui-icon-trash" title="Excluir" />
+					</p:column>
+
+				</p:dataTable>
+
+
+			</h:form>
+		</ui:define>
+
+	</body>
+
+
+</ui:composition>

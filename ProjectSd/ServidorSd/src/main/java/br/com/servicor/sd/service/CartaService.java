@@ -24,8 +24,10 @@ public class CartaService implements Serializable {
 	private Cartas cartas;
 
 	@Transacional
-	public Carta guardar(Carta carta) {
-		return cartas.guardar(carta);
+	public void guardar(Carta carta) {
+
+		this.cartas.guardar(carta);
+
 	}
 
 	public List<Carta> todos() {

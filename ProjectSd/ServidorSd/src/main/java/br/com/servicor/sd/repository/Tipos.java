@@ -33,6 +33,29 @@ public class Tipos implements Serializable {
 		return manager.merge(tipo);
 	}
 
+	
+	public List<Tipo> todos() {
+
+		this.builder = this.manager.getCriteriaBuilder();
+		this.query = builder.createQuery(Tipo.class);
+
+		Root<Tipo> tipoRoot = query.from(Tipo.class);
+		Predicate predicate = builder.isTrue(tipoRoot.get("ativo"));
+
+		query.select(tipoRoot);
+		query.where(predicate);
+
+		TypedQuery<Tipo> typedQuery = manager.createQuery(query);
+
+		List<Tipo> tipos = typedQuery.getResultList();
+
+		return tipos;
+
+	}
+
+	
+	
+	
 	public Tipo porId(Long id) {
 
 		this.builder = this.manager.getCriteriaBuilder();

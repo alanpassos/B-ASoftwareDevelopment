@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<p:dialog header="Editar Carta" widgetVar="CartaEditarDialog"
+		draggable="false" resizable="false" height="100%" width="50%"
+		modal="true" showEffect="slide" hideEffect="slide"
+		closeOnEscape="true">
+
+		<h:form id="editar">
+
+			<p:panelGrid id="panelEditarCarta" columns="2" layout="grid"
+				style="width: 100%;  border: none;" styleClass="panelgrid-noborder"
+				columnClasses="ui-grid-col-2,ui-grid-col-10">
+
+				<p:outputLabel value="Tipo" for="tipo" />
+				<p:selectOneMenu id="tipo" required="true" style="width: 60%"
+					value="#{editarCartaBean.carta.}" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Selecione o Campus" />
+					<f:selectItems itemValue="#{campus}"
+						value="#{editarBlocoBean.campi}" var="campus"
+						itemLabel="#{campus.campus}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Descrição" for="descricao" />
+				<p:inputText id="descricao"
+					value="#{editarBlocoBean.bloco.descricao}" maxlength="50"
+					style="width: 100%" placeholder="Descrição" required="true" />
+
+				<p:outputLabel value="Observação" for="observacao" />
+				<p:inputTextarea rows="10" cols="30" id="observacao"
+					value="#{editarBlocoBean.bloco.observacao}" counter="display"
+					style="width: 100%" maxlength="500"
+					counterTemplate="{0} caracteres." autoResize="false" />
+				<p:panelGrid />
+				<h:outputText id="display" style="font-size:10px;" />
+
+
+			</p:panelGrid>
+
+			<p:toolbar style="margin-top: 20px">
+
+				<p:toolbarGroup>
+
+					<p:commandButton value="Salvar" process="@form"
+						update=":frm:editar:panelEditarBloco :frm:blocoTable growl"
+						actionListener="#{editarBlocoBean.salvar}"
+						action="#{listarBlocoBean.inicializar}"
+						oncomplete="PF('BlocoEditarDialog').hide()" />
+
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:commandButton value="Voltar"
+						oncomplete="PF('BlocoEditarDialog').hide()" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+		</h:form>
+
+	</p:dialog>
+
+
+</ui:composition>

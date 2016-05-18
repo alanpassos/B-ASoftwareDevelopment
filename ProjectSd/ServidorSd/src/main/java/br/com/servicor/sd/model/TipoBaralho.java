@@ -2,9 +2,9 @@ package br.com.servicor.sd.model;
 
 public enum TipoBaralho {
 
-	agressivo("Agressivo"), 
-	equilibrado("Equilibrado"),
-	defensivo("Defensivo");
+	AGRESSIVO("Agressivo"), 
+	EQUILIBRADO("Equilibrado"),
+	DEFENSIVO("Defensivo");
 
 	private String descricao;
 

@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<div class="corpo-pesquisa">
+		<h:form id="selecao">
+
+
+			<p:dataGrid var="baralho" value="#{listarBaralhoBean.baralhos}"
+				columns="4" layout="grid" rows="12" paginator="true"
+				id="panelBaralho" style="text-align:center;"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+				<f:facet name="header">
+            			Baralhos
+        		</f:facet>
+
+				<p:panel header="#{baralho.nome}" style="text-align:center">
+					<h:panelGrid columns="1" style="width:50%">
+						<a href=""> <o:graphicImage
+								value="#{listarBaralhoBean.getImagem(baralho.capa)}"
+								dataURI="true" height="299" width="216" />
+
+						</a>
+
+						<h:outputText value="#{baralho.tipo}" />
+						<p:button value="Selecionar"
+							outcome="/carta/ConsultarCarta">
+							<f:param name="baralho" value="#{baralho.id}" />
+
+						</p:button>
+
+
+					</h:panelGrid>
+
+				</p:panel>
+
+
+
+
+			</p:dataGrid>
+
+		</h:form>
+	</div>
+
+
+
+</ui:composition>

@@ -34,4 +34,10 @@ public class TipoService implements Serializable {
 		return tipos.porId(id);
 	}
 
+	
+	public List<Tipo> todos() {
+		return tipos.todos();
+	}
+
+	
 }
