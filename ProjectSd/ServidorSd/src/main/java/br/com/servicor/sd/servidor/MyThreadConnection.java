@@ -32,7 +32,6 @@ import javax.swing.JOptionPane;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
-
 import br.com.servicor.sd.model.Baralho;
 import br.com.servicor.sd.model.Jogador;
 
@@ -41,17 +40,12 @@ public class MyThreadConnection extends Thread {
 
 	GenericFactory generic;
 
-	EntityManagerFactory factory;
-	EntityManager manager;
-
 	boolean navegador;
 
 	public MyThreadConnection(Socket s) {
 		this.s = s;
 		this.navegador = false;
 		generic = new GenericFactory<>();
-		factory = Persistence.createEntityManagerFactory("ServidorSd");
-		manager = factory.createEntityManager();
 
 	}
 
@@ -59,23 +53,11 @@ public class MyThreadConnection extends Thread {
 		try {
 
 			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(this.s.getInputStream()));
-			// Aguarda nome do arquivo enviado pelo cliente.
-			try {
-				// System.out.println("Setando timout servidor");
-				s.setSoTimeout(50000);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				s.close();
-				JOptionPane.showMessageDialog(null, "Esgotado tempo limite");
-				return;
-			}
+
 			String descricao = inFromClient.readLine();
-			// System.out.println("Recebeu pedido de arquivo " + nmArquivo);
-			System.out.println(descricao);
+			System.out.println("Recebeu pedido de arquivo " + descricao);
 
-			OutputStream objectOutput = s.getOutputStream();
-
-			acessarClassesBanco(descricao, objectOutput);
+			acessarClassesBanco(descricao, s.getOutputStream());
 
 		} catch (IOException ex) {
 
@@ -162,11 +144,11 @@ public class MyThreadConnection extends Thread {
 	}
 
 	public void getTodosBaralhos(OutputStream objectOutput) {
-
-		
-		
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ServidorSd");
+		EntityManager manager = factory.createEntityManager();
 		
 		List<Baralho> baralhos = manager.createQuery("from Baralho", Baralho.class).getResultList();
+		
 		manager.close();
 
 		PrintStream print = new PrintStream(objectOutput);
@@ -178,7 +160,11 @@ public class MyThreadConnection extends Thread {
 
 	public void getBaralhoPorId(OutputStream objectOutput, Long id) {
 
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ServidorSd");
+		EntityManager manager = factory.createEntityManager();
+		
 		Baralho baralho = manager.find(Baralho.class, id);
+		
 		manager.close();
 
 		PrintStream print = new PrintStream(objectOutput);
@@ -188,13 +174,31 @@ public class MyThreadConnection extends Thread {
 		print.flush();
 	}
 
-	
-	
-
 	public void getTodosJogadores(OutputStream objectOutput) throws java.text.ParseException {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ServidorSd");
+		EntityManager manager = factory.createEntityManager();
+		Long porta = new Long(s.getPort());
 
+		
+		//consultando jogador pela porta
+		Jogador jogadorReturn = manager.createQuery("from Jogador where JOG_PORTA= :porta", Jogador.class)
+				.setParameter("porta", porta).getSingleResult();
+
+		
 		List<Jogador> jogadores = manager.createQuery("from Jogador where JOG_ATIVO= true", Jogador.class)
 				.getResultList();
+
+		
+		//persistindo dados
+		EntityTransaction trx = manager.getTransaction();
+		trx.begin();
+		
+		jogadorReturn.setAtivo(true);
+		jogadorReturn.setHost(s.getInetAddress().toString());
+
+		manager.merge(jogadorReturn);
+
+		trx.commit();
 
 		manager.close();
 
@@ -207,7 +211,8 @@ public class MyThreadConnection extends Thread {
 	}
 
 	public void getJogadorPorId(OutputStream objectOutput, Long id) {
-
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ServidorSd");
+		EntityManager manager = factory.createEntityManager();
 		Jogador jogador = manager.find(Jogador.class, id);
 		manager.close();
 
