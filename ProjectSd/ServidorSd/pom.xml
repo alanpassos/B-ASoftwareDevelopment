@@ -19,6 +19,21 @@
 			<version>5.3</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- http://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se</artifactId>
+			<version>2.2.11.Final</version>
+		</dependency>
+
 		<!-- OMNI FACES -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
