@@ -18,15 +18,16 @@ import android.os.AsyncTask;
 
 import com.example.brendelsantos.jogosd.Model.Jogador;
 
-public class ClienteTask extends AsyncTask<Void, Void, Void> {
+public class ClienteTask extends AsyncTask<Void, Void, String> {
 
     private String enderecoDestino;
     private int portaDestino;
     private String mensagemEnviada;
-    private String resposta ;
+    private String resposta;
     private OutputStream os;
     private OutputStreamWriter osw;
     BufferedWriter bw;
+    private String mensagemRetorno;
 
     public ClienteTask(String addr, int port, String mensagemEnviada){
         this.enderecoDestino = addr;
@@ -35,8 +36,16 @@ public class ClienteTask extends AsyncTask<Void, Void, Void> {
         this.resposta = "";
     }
 
+    public ClienteTask(String addr, int port, String mensagemEnviada, String mensagemRetorno){
+        this.enderecoDestino = addr;
+        this.portaDestino = port;
+        this.mensagemEnviada = mensagemEnviada;
+        this.resposta = "";
+        this.mensagemRetorno = mensagemRetorno;
+    }
+
     @Override
-    protected Void doInBackground(Void... arg0) {
+    protected String doInBackground(Void... arg0) {
 
         Socket socket = null;
 
@@ -51,25 +60,16 @@ public class ClienteTask extends AsyncTask<Void, Void, Void> {
             bw.flush();
 
             ByteArrayOutputStream byteArrayOutputStream =
-                    new ByteArrayOutputStream(1024);
-            byte[] buffer = new byte[1024];
+                    new ByteArrayOutputStream(4096);
+            byte[] buffer = new byte[4096];
 
             int bytesRead;
             InputStream inputStream = socket.getInputStream();
 
-
-            Jogador jogador;
-//            try {
-//                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-//                jogador = (Jogador) objectInputStream.readObject();
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-
             while ((bytesRead = inputStream.read(buffer)) != -1){
 
                 byteArrayOutputStream.write(buffer, 0, bytesRead);
-                resposta += byteArrayOutputStream.toString("UTF-8");
+                resposta += byteArrayOutputStream.toString("utf-8");
             }
 
 
@@ -91,12 +91,12 @@ public class ClienteTask extends AsyncTask<Void, Void, Void> {
                 }
             }
         }
-        return null;
+        return resposta;
     }
 
     @Override
-    protected void onPostExecute(Void result) {
-        //textResposta.setText(resposta);
+    protected void onPostExecute(String result) {
+        mensagemRetorno = resposta;
         super.onPostExecute(result);
     }
 

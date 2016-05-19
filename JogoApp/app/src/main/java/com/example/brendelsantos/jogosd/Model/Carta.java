@@ -14,29 +14,114 @@ import java.util.Date;
  */
 public class Carta {
 
-    private Long idCarta;
-    private Long valorVidaTotal;;
 
+    private Long id;
+    private String descricao;
+    private String nome;
+    private String tipo;
+    private Long valorPoder;
+    private Long valorVidaTotal;;
     private boolean principal;
     private String carta;
-    private Date dataCadastro;
+    private boolean ativo;
+
     private String imagem;
     private Bitmap imagemBitmapCarta;
     private Bitmap imagemCartaFundo;
     private Bitmap imagemCarta;
     private boolean isEscondida;
-    private String nome;
-    private String descricao;
     private Point posicaoPontoCarta;
     private int posicaoCarta;
-    private boolean ativo;
 
-    public Long getIdCarta() {
-        return idCarta;
+    Baralho baralho = new Baralho();
+
+
+    public Long getId() {
+        return id;
     }
 
-    public void setIdCarta(Long idCarta) {
-        this.idCarta = idCarta;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Long getValorPoder() {
+        return valorPoder;
+    }
+
+    public void setValorPoder(Long valorPoder) {
+        this.valorPoder = valorPoder;
+    }
+
+    public Long getValorVidaTotal() {
+        return valorVidaTotal;
+    }
+
+    public void setValorVidaTotal(Long valorVidaTotal) {
+        this.valorVidaTotal = valorVidaTotal;
+    }
+
+    public boolean isPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
+    }
+
+    public String getCarta() {
+        return carta;
+    }
+
+    public void setCarta(String carta) {
+        this.carta = carta;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public Bitmap getImagemCarta() {
+        return imagemCarta;
+    }
+
+    public void setImagemCarta(Bitmap imagemCarta) {
+        this.imagemCarta = imagemCarta;
+    }
+
+    public Point getPosicaoPontoCarta() {
+        return posicaoPontoCarta;
+    }
+
+    public void setPosicaoPontoCarta(Point posicaoPontoCarta) {
+        this.posicaoPontoCarta = posicaoPontoCarta;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Baralho getBaralho() {
+        return baralho;
+    }
+
+    public void setBaralho(Baralho baralho) {
+        this.baralho = baralho;
     }
 
     public Bitmap getImagemBitmapCarta() {

@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.brendelsantos.jogosd.Activity.JogoActivity;
 import com.example.brendelsantos.jogosd.Dados.Partida;
 import com.example.brendelsantos.jogosd.Model.Carta;
 import com.example.brendelsantos.jogosd.Tasks.ClienteTask;
@@ -56,8 +57,8 @@ public class BotaoCarta extends ImageButton implements View.OnClickListener {
     public void onClick(View v) {
         partida.adicionaCartaJogador(carta);
         ClienteTask myClientTask = new ClienteTask(
-                "192.168.43.205",
-                8080, "" + carta.getIdCarta() + "#" + carta.getPosicaoCarta());
+                JogoActivity.IP,
+                8181, "" + carta.getId() + "#" + carta.getPosicaoCarta());
         myClientTask.execute();
     }
 }

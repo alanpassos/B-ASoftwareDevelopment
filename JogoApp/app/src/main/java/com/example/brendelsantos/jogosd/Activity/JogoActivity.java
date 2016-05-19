@@ -1,5 +1,6 @@
 package com.example.brendelsantos.jogosd.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +11,15 @@ import com.example.brendelsantos.jogosd.Componentes.BotaoCarta;
 import com.example.brendelsantos.jogosd.Dados.Partida;
 import com.example.brendelsantos.jogosd.Dados.Sessao;
 import com.example.brendelsantos.jogosd.R;
+import com.example.brendelsantos.jogosd.Tasks.ClienteTask;
 import com.example.brendelsantos.jogosd.Tasks.SocketServerThread;
 import com.example.brendelsantos.jogosd.Util.Random;
 
+import java.util.ArrayList;
+
 public class JogoActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
-
+    public static String IP;
     private View view;
     private RelativeLayout layoutBotoes;
     private JogoView jogoView;
@@ -23,11 +27,13 @@ public class JogoActivity extends AppCompatActivity {
     private Sessao sessao;
     private SocketServerThread serverSocket;
     private BotaoCarta[] botoesCarta;
+    private int indiceBaralho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PACKAGE_NAME = getApplicationContext().getPackageName();
+
 
         inicializaObjetos();
         final LinearLayout game = (LinearLayout) view.findViewById(R.id.linearLayoutGame);
@@ -38,27 +44,50 @@ public class JogoActivity extends AppCompatActivity {
     }
 
     public void inicializaObjetos(){
+        Intent intent = getIntent();
+        String ipMain = intent.getStringExtra(MainActivity.JOGADOR_HOST);
+        if (ipMain != null) {
+            IP = ipMain;
+
+            ClienteTask myClientTask = new ClienteTask(
+                    JogoActivity.IP,
+                    8080, "INICIOJOGO");
+            myClientTask.execute();
+        }
+
         view = getLayoutInflater().inflate(R.layout.activity_jogo, null);
         layoutBotoes = (RelativeLayout) view.findViewById(R.id.linearLayoutBotoes);
         partida = new Partida(getResources());
-        partida.iniciaBaralho(1, true);
-        partida.iniciaBaralho(1, false);
-        jogoView = new JogoView(this, partida);
+        partida.iniciaBaralhos();
+
+        jogoView = new JogoView(this, partida, this);
 
         botoesCarta = new BotaoCarta[5];
 
         sessao = Sessao.getInstance();
-        serverSocket =  new SocketServerThread(this);
+        serverSocket =  new SocketServerThread(this, 8181, partida);
         Thread socketServerThread = new Thread(serverSocket);
         socketServerThread.start();
-
+        int indiceRandomCarta = -1;
+        ArrayList<Integer> indicesSorteados = new ArrayList<>();
         for (int i = 0; i < botoesCarta.length; i++) {
-            int indiceRandomCarta = Random.randInt(0, partida.getBaralhoJogador().size() - 1);
+            indiceRandomCarta = Random.randInt(1, partida.getBaralhoUm().size() - 1);
+
+            while (indicesSorteados.contains(indiceRandomCarta)) {
+                indiceRandomCarta = Random.randInt(1, partida.getBaralhoUm().size() - 1);
+            }
+            indicesSorteados.add(indiceRandomCarta);
+
             String idBotao = "botao_carta_" + Integer.toString(i);
             int identificadorBotaoRes = getResources().getIdentifier(idBotao, "id", PACKAGE_NAME);
 
             botoesCarta[i] = (BotaoCarta) layoutBotoes.findViewById(identificadorBotaoRes);
-            botoesCarta[i].setCarta(partida.getBaralhoJogador().get(indiceRandomCarta));
+
+            if (MainActivity.ID_JOGADOR % 2 == 0) {
+                botoesCarta[i].setCarta(partida.getBaralhoUm().get(indiceRandomCarta));
+            } else {
+                botoesCarta[i].setCarta(partida.getBaralhoDois().get(indiceRandomCarta));
+            }
             botoesCarta[i].setPartida(partida);
         }
 

@@ -4,40 +4,59 @@ package com.example.brendelsantos.jogosd.Model;
  * Created by Brendel Santos on 08/05/2016.
  */
 public class Baralho {
-    private int idJJogador;
-    private int idCarta;
-    private Jogador jogador;
-    private Carta carta;
+    private Long id;
+    private String descricao;
+    private String nome;
+    private TipoBaralho tipoBaralho;
+    private String capa;
 
-    public int getIdJJogador() {
-        return idJJogador;
+    private boolean ativo;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setIdJJogador(int idJJogador) {
-        this.idJJogador = idJJogador;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getIdCarta() {
-        return idCarta;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setIdCarta(int idCarta) {
-        this.idCarta = idCarta;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Jogador getJogador() {
-        return jogador;
+    public String getNome() {
+        return nome;
     }
 
-    public void setJogador(Jogador jogador) {
-        this.jogador = jogador;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Carta getCarta() {
-        return carta;
+    public TipoBaralho getTipoBaralho() {
+        return tipoBaralho;
     }
 
-    public void setCarta(Carta carta) {
-        this.carta = carta;
+    public void setTipoBaralho(TipoBaralho tipoBaralho) {
+        this.tipoBaralho = tipoBaralho;
+    }
+
+    public String getCapa() {
+        return capa;
+    }
+
+    public void setCapa(String capa) {
+        this.capa = capa;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

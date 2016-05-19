@@ -1,5 +1,6 @@
 package com.example.brendelsantos.jogosd.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -12,9 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-import com.example.brendelsantos.jogosd.Componentes.PaintCartaJogo;
 import com.example.brendelsantos.jogosd.Dados.Partida;
-import com.example.brendelsantos.jogosd.Model.Carta;
 import com.example.brendelsantos.jogosd.R;
 
 import java.util.Random;
@@ -31,6 +30,11 @@ class JogoView extends SurfaceView implements Runnable {
     private long fps;
     private Random random;
     private int pontuacao;
+    private long hpAdversario;
+    private long hpJogador;
+
+    int valorAtaqueAdversario = 0;
+    int valorAtaqueJogador = 0;
 
     private int contadorObjetosRenovados = 0;
 
@@ -40,6 +44,7 @@ class JogoView extends SurfaceView implements Runnable {
 
     private Resources resources;
     private Context contexto;
+    Activity activity;
 
     /*
     AREA PARA TESTES
@@ -47,7 +52,7 @@ class JogoView extends SurfaceView implements Runnable {
     Partida partida;
     private int contador = 0;
 
-    public JogoView(Context context, Partida partida) {
+    public JogoView(Context context, Partida partida, Activity activity) {
         super(context);
 
         this.contexto = context;
@@ -61,14 +66,9 @@ class JogoView extends SurfaceView implements Runnable {
 
         this.bitmapBackground = BitmapFactory.decodeResource(this.getResources(), R.drawable.background);
         this.partida = partida;
-//        this.partida.adicionaCartaJogador(1, 1);
-//        this.partida.adicionaCartaJogador(2, 2);
-//        this.partida.adicionaCartaJogador(7, 3);
-//        this.partida.adicionaCartaJogador(6, 4);
-//        this.partida.adicionaCartaJogador(8, 5);
-//        this.partida.adicionaCartaJogador(9, 6);
-//        this.partida.adicionaCartaJogador(13, 7);
-//        this.partida.adicionaCartaJogador(14, 8);
+        this.activity = activity;
+        hpAdversario = partida.getCartasAdversario().get(0).getValorVidaTotal();
+        hpJogador = partida.getCartasJogador().get(0).getValorVidaTotal();
         playing = true;
     }
 
@@ -91,7 +91,59 @@ class JogoView extends SurfaceView implements Runnable {
     }
 
     public void update() {
+        if (partida.isAcabouRodadaAdversario() && partida.isAcabouRodadaJogador()) {
 
+
+            for (int i = 0; i < partida.getCartasAdversario().size(); i++) {
+                partida.getCartasAdversario().get(i).setIsEscondida(false);
+                valorAtaqueAdversario +=  partida.getCartasAdversario().get(i).getValorPoder();
+            }
+            partida.getCartasAdversario().remove(1);
+            partida.getCartasAdversario().remove(2);
+            partida.getCartasAdversario().remove(3);
+
+            for (int i = 0; i < partida.getCartasJogador().size(); i++) {
+                valorAtaqueJogador += partida.getCartasJogador().get(i).getValorPoder();
+                partida.getCartasJogador().remove(i);
+            }
+
+            partida.getCartasJogador().remove(1);
+            partida.getCartasJogador().remove(2);
+            partida.getCartasJogador().remove(3);
+
+            final String dados = "Ataque Adversário: " + valorAtaqueAdversario + "\nAtaque Jogador: " + valorAtaqueJogador + "\n";
+            activity.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(contexto, dados, Toast.LENGTH_SHORT).show();
+                }
+            });
+            partida.setAcabouRodadaAdversario(false);
+            partida.setAcabouRodadaJogador(false);
+
+            if (valorAtaqueAdversario > valorAtaqueJogador) {
+                hpJogador -= (valorAtaqueAdversario - valorAtaqueJogador);
+            } else {
+                hpAdversario -= (valorAtaqueJogador - valorAtaqueAdversario);
+            }
+
+            final String dadosHp = "Hp Adversário: " + hpAdversario + "\nHp Jogador: " + hpJogador + "\n";
+
+            activity.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(contexto, dadosHp, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            if (hpAdversario <= 0 ){
+                Toast.makeText(contexto, "Você ganhou!", Toast.LENGTH_SHORT).show();
+            } else if (hpJogador <= 0)  {
+                Toast.makeText(contexto, "Você perdeu!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void draw() {

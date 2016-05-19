@@ -26,7 +26,7 @@ public class SocketServerRespostaThread extends Thread {
     @Override
     public void run() {
         OutputStream outputStream;
-        String msgReply = "Hello from Android, you are #" + cnt;
+        String msgReply = "Numero #" + cnt;
 
         try {
             outputStream = hostThreadSocket.getOutputStream();
