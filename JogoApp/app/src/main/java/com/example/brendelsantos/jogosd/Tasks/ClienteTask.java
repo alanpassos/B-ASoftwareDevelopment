@@ -8,12 +8,15 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.os.AsyncTask;
+
+import com.example.brendelsantos.jogosd.Model.Jogador;
 
 public class ClienteTask extends AsyncTask<Void, Void, Void> {
 
@@ -54,10 +57,21 @@ public class ClienteTask extends AsyncTask<Void, Void, Void> {
             int bytesRead;
             InputStream inputStream = socket.getInputStream();
 
+
+            Jogador jogador;
+//            try {
+//                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+//                jogador = (Jogador) objectInputStream.readObject();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+
             while ((bytesRead = inputStream.read(buffer)) != -1){
+
                 byteArrayOutputStream.write(buffer, 0, bytesRead);
                 resposta += byteArrayOutputStream.toString("UTF-8");
             }
+
 
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block

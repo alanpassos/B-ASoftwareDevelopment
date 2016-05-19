@@ -2,35 +2,31 @@ package com.example.brendelsantos.jogosd.Model;
 
 import android.graphics.Bitmap;
 
+import java.sql.Date;
+import java.util.List;
+
 /**
  * Created by Brendel Santos on 08/05/2016.
  */
 public class Jogador {
-    private int idJogador;
-    private int idUsuario;
+    private Long id;
     private String nome;
-    private String descricao;
-    private String imagem;
-    private Bitmap imagemBitmap;
-    private int nivel;
-    private int quantidadeVitorias;
-    private int quantidadeDerrotas;
+    private String nivel;
+    private String host;
+    private Long porta;
+    private Long quantidadeVitoria;
+    private Long quantidadeDerrota;
+    private Date dataCadastro;
     private boolean ativo;
 
-    public int getIdJogador() {
-        return idJogador;
+    private List<Baralho> baralhos;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setIdJogador(int idJogador) {
-        this.idJogador = idJogador;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -41,52 +37,52 @@ public class Jogador {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
-
-    public Bitmap getImagemBitmap() {
-        return imagemBitmap;
-    }
-
-    public void setImagemBitmap(Bitmap imagemBitmap) {
-        this.imagemBitmap = imagemBitmap;
-    }
-
-    public int getNivel() {
+    public String getNivel() {
         return nivel;
     }
 
-    public void setNivel(int nivel) {
+    public void setNivel(String nivel) {
         this.nivel = nivel;
     }
 
-    public int getQuantidadeVitorias() {
-        return quantidadeVitorias;
+    public String getHost() {
+        return host;
     }
 
-    public void setQuantidadeVitorias(int quantidadeVitorias) {
-        this.quantidadeVitorias = quantidadeVitorias;
+    public void setHost(String host) {
+        this.host = host;
     }
 
-    public int getQuantidadeDerrotas() {
-        return quantidadeDerrotas;
+    public Long getPorta() {
+        return porta;
     }
 
-    public void setQuantidadeDerrotas(int quantidadeDerrotas) {
-        this.quantidadeDerrotas = quantidadeDerrotas;
+    public void setPorta(Long porta) {
+        this.porta = porta;
+    }
+
+    public Long getQuantidadeVitoria() {
+        return quantidadeVitoria;
+    }
+
+    public void setQuantidadeVitoria(Long quantidadeVitoria) {
+        this.quantidadeVitoria = quantidadeVitoria;
+    }
+
+    public Long getQuantidadeDerrota() {
+        return quantidadeDerrota;
+    }
+
+    public void setQuantidadeDerrota(Long quantidadeDerrota) {
+        this.quantidadeDerrota = quantidadeDerrota;
+    }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     public boolean isAtivo() {
@@ -95,5 +91,13 @@ public class Jogador {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public List<Baralho> getBaralhos() {
+        return baralhos;
+    }
+
+    public void setBaralhos(List<Baralho> baralhos) {
+        this.baralhos = baralhos;
     }
 }

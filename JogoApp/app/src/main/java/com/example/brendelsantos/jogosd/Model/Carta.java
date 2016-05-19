@@ -7,11 +7,19 @@ import android.graphics.Point;
 
 import com.example.brendelsantos.jogosd.Componentes.PosicoesCartas;
 
+import java.util.Date;
+
 /**
  * Created by Brendel Santos on 08/05/2016.
  */
 public class Carta {
-    private int idCarta;
+
+    private Long idCarta;
+    private Long valorVidaTotal;;
+
+    private boolean principal;
+    private String carta;
+    private Date dataCadastro;
     private String imagem;
     private Bitmap imagemBitmapCarta;
     private Bitmap imagemCartaFundo;
@@ -19,13 +27,15 @@ public class Carta {
     private boolean isEscondida;
     private String nome;
     private String descricao;
-    private Point posicaoCarta;
+    private Point posicaoPontoCarta;
+    private int posicaoCarta;
+    private boolean ativo;
 
-    public int getIdCarta() {
+    public Long getIdCarta() {
         return idCarta;
     }
 
-    public void setIdCarta(int idCarta) {
+    public void setIdCarta(Long idCarta) {
         this.idCarta = idCarta;
     }
 
@@ -73,28 +83,37 @@ public class Carta {
             imagemCarta = imagemBitmapCarta;
     }
 
+    public int getPosicaoCarta() {
+        return posicaoCarta;
+    }
+
+    public void setPosicaoCarta(int posicaoCarta) {
+        this.posicaoCarta = posicaoCarta;
+    }
+
     public void setPosicao(int numeroPosicao) {
+        posicaoCarta = numeroPosicao;
         if (numeroPosicao == 1) {
-            posicaoCarta = PosicoesCartas.JOGADOR_BASE;
+            posicaoPontoCarta = PosicoesCartas.JOGADOR_BASE;
         } else if (numeroPosicao == 2) {
-            posicaoCarta = PosicoesCartas.JOGADOR_PRIMEIRA;
+            posicaoPontoCarta = PosicoesCartas.JOGADOR_PRIMEIRA;
         } else if (numeroPosicao == 3) {
-            posicaoCarta = PosicoesCartas.JOGADOR_SEGUNDA;
+            posicaoPontoCarta = PosicoesCartas.JOGADOR_SEGUNDA;
         } else if (numeroPosicao == 4) {
-            posicaoCarta = PosicoesCartas.JOGADOR_TERCEIRA;
+            posicaoPontoCarta = PosicoesCartas.JOGADOR_TERCEIRA;
         } else if (numeroPosicao == 5) {
-            posicaoCarta = PosicoesCartas.ADVERSARIO_BASE;
+            posicaoPontoCarta = PosicoesCartas.ADVERSARIO_BASE;
         } else if (numeroPosicao == 6) {
-            posicaoCarta = PosicoesCartas.ADVERSARIO_PRIMEIRA;
+            posicaoPontoCarta = PosicoesCartas.ADVERSARIO_PRIMEIRA;
         } else if (numeroPosicao == 7) {
-            posicaoCarta = PosicoesCartas.ADVERSARIO_SEGUNDA;
+            posicaoPontoCarta = PosicoesCartas.ADVERSARIO_SEGUNDA;
         } else if (numeroPosicao == 8) {
-            posicaoCarta = PosicoesCartas.ADVERSARIO_TERCEIRA;
+            posicaoPontoCarta = PosicoesCartas.ADVERSARIO_TERCEIRA;
         }
     }
 
     public void paint(Canvas canvas, Paint paint) {
-        canvas.drawBitmap(imagemCarta, posicaoCarta.x, posicaoCarta.y, paint);
+        canvas.drawBitmap(imagemCarta, posicaoPontoCarta.x, posicaoPontoCarta.y, paint);
 
     }
 

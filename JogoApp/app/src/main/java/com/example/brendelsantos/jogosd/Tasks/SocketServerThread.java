@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.brendelsantos.jogosd.Activity.JogoActivity;
 import com.example.brendelsantos.jogosd.Componentes.PaintCartaJogo;
 
 import java.io.BufferedReader;
@@ -23,15 +24,13 @@ public class SocketServerThread extends Thread {
     private ServerSocket serverSocket;
     private static final int SocketServerPORT = 8080;
     private int count = 0;
-    private  PaintCartaJogo carta;
-    private Activity activity;
+    private JogoActivity activity;
     private Context contexto;
-    private String mensagemRecebida;
+    private String[] mensagemRecebida;
 
-    public SocketServerThread(Activity activity) {
+    public SocketServerThread(JogoActivity activity) {
         this.activity = activity;
         this.contexto = activity.getApplicationContext();
-        this.mensagemRecebida = "";
     }
 
     @Override
@@ -47,7 +46,7 @@ public class SocketServerThread extends Thread {
 
                 BufferedReader entradaDoCliente = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
-                mensagemRecebida = entradaDoCliente.readLine();
+                mensagemRecebida = entradaDoCliente.readLine().split("#");
 
                 activity.runOnUiThread(new Runnable() {
 
@@ -57,6 +56,8 @@ public class SocketServerThread extends Thread {
                                + ":" +  porta +  "Mensagem: " + mensagemRecebida + "\n", Toast.LENGTH_SHORT).show();
                    }
                 });
+
+                activity.getPartida().adicionaCartaAdversario(Long.valueOf(mensagemRecebida[0]), Integer.valueOf(mensagemRecebida[1]));
 
                 SocketServerRespostaThread socketServerRespostaThread = new SocketServerRespostaThread(
                         socket, count);

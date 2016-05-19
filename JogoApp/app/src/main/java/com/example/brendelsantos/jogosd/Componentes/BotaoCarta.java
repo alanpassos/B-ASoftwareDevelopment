@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.brendelsantos.jogosd.Dados.Partida;
 import com.example.brendelsantos.jogosd.Model.Carta;
 import com.example.brendelsantos.jogosd.Tasks.ClienteTask;
 
@@ -14,6 +15,7 @@ import com.example.brendelsantos.jogosd.Tasks.ClienteTask;
 public class BotaoCarta extends ImageButton implements View.OnClickListener {
 
     private Carta carta;
+    private Partida partida;
 
     public BotaoCarta(Context context) {
         super(context);
@@ -28,6 +30,10 @@ public class BotaoCarta extends ImageButton implements View.OnClickListener {
     public BotaoCarta(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+    }
+
+    public void setPartida(Partida partida) {
+        this.partida = partida;
     }
 
     public Carta getCarta() {
@@ -48,9 +54,10 @@ public class BotaoCarta extends ImageButton implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        partida.adicionaCartaJogador(carta);
         ClienteTask myClientTask = new ClienteTask(
-                "192.168.1.5",
-                8080, "" + carta.getIdCarta());
+                "192.168.43.205",
+                8080, "" + carta.getIdCarta() + "#" + carta.getPosicaoCarta());
         myClientTask.execute();
     }
 }

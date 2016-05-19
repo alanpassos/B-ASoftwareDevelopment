@@ -3,7 +3,7 @@ package com.example.brendelsantos.jogosd.Model;
 /**
  * Created by Brendel Santos on 08/05/2016.
  */
-public class RelacaoJogadorCarta {
+public class Baralho {
     private int idJJogador;
     private int idCarta;
     private Jogador jogador;

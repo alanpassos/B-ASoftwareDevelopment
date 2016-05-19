@@ -61,15 +61,14 @@ class JogoView extends SurfaceView implements Runnable {
 
         this.bitmapBackground = BitmapFactory.decodeResource(this.getResources(), R.drawable.background);
         this.partida = partida;
-        this.partida.adicionaCartaJogador(1, 1);
-        this.partida.adicionaCartaJogador(2, 2);
-        this.partida.adicionaCartaJogador(7, 3);
-        this.partida.adicionaCartaJogador(6, 4);
-        this.partida.adicionaCartaJogador(8, 5);
-        this.partida.adicionaCartaJogador(9, 6);
-        this.partida.adicionaCartaJogador(13, 7);
-        this.partida.adicionaCartaJogador(14, 8);
-
+//        this.partida.adicionaCartaJogador(1, 1);
+//        this.partida.adicionaCartaJogador(2, 2);
+//        this.partida.adicionaCartaJogador(7, 3);
+//        this.partida.adicionaCartaJogador(6, 4);
+//        this.partida.adicionaCartaJogador(8, 5);
+//        this.partida.adicionaCartaJogador(9, 6);
+//        this.partida.adicionaCartaJogador(13, 7);
+//        this.partida.adicionaCartaJogador(14, 8);
         playing = true;
     }
 
